@@ -1,0 +1,19 @@
+.scroll {
+  height: 95%;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track{
+    border-radius: 10px;
+    background: linear-gradient(145deg, #2f2f32, #38383b);
+    box-shadow:  20px 20px 60px #2c2c2f,
+               -20px -20px 60px #3c3c3f;
+  }
+  &::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background: linear-gradient(145deg, #565659, #48484b);
+    box-shadow:  20px 20px 60px #4f4f51,
+               -20px -20px 60px #6b6b6d;
+  }
+}

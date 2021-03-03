@@ -1,0 +1,42 @@
+@mixin boxShadow {
+  background: #444447;
+  box-shadow:  7px 7px 14px #38383b,
+               -7px -7px 14px #505053;
+}
+.sideBar {
+  width: 50%;
+  height: 100%;
+  @include boxShadow();
+}
+.header {
+  width: 100%;
+  height: 7%;
+  @include boxShadow();
+}
+.underLeft {
+  width: 100%;
+  height: 95%;
+  border-radius: 29px;
+  @include boxShadow();
+  display: flex;
+  justify-content: center;
+}
+
+.scroll {
+  margin-top: 30px;
+  height: 95%;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-track{
+    border-radius: 10px;
+    background: linear-gradient(145deg, #2f2f32, #38383b);
+  }
+  &::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background: linear-gradient(145deg, #565659, #48484b);
+    box-shadow:  20px 20px 60px #4f4f51,
+               -20px -20px 60px #6b6b6d;
+  }
+}
