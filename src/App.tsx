@@ -30,7 +30,7 @@ const App: React.FC = () => {
   return (
     <>
       {user.uid ? (
-        <div className="flex justify-center h-screen bg-appBg px-64">
+        <div className="flex justify-center h-screen bg-appBg 2xl:px-64 px-32">
           <Feed />
         </div>
       ) : (
