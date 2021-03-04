@@ -5,8 +5,6 @@ import TrainingInput from './TrainingInput';
 import CommentInput from './CommentInput';
 import Post from './Post';
 import User from './User';
-import { selectUser } from "../features/userSlice";
-import { useSelector } from "react-redux";
 interface User {
   profileUserName: string;
   avatar: string;
@@ -26,14 +24,8 @@ interface CommentPost {
 }
 const Feed: React.FC = () => {
   const [ posts, setPosts] = useState<Post[]>([]);
-  const user = useSelector(selectUser);
   const [ displayCommentInput, setDisplayCommentInput ] = useState<boolean>(false);
   const [ commentPost, setCommentPost ] = useState<CommentPost>();
-  const [ profileUser, setProfileUser ] = useState<User>({
-    profileUserName: user.displayName,
-    avatar: user.photoUrl
-    }
-  )
   const openCommentInput = (id:string, avatar:string) => {
     setDisplayCommentInput(true);
     setCommentPost({
@@ -61,13 +53,6 @@ const Feed: React.FC = () => {
       unSub();
     };
   }, []);
-  //ユーザープロフィール画面の表示をユーザーごとに切り替える
-  const updateProfile = (name:string, avatar:string) => {
-    setProfileUser({
-      profileUserName: name,
-      avatar: avatar,
-    })
-  }
   return (
     <div className="grid grid-rows-3 grid-cols-12 grid-flow-col">
       {/* <div className="row-span-3 col-span-1">
@@ -77,8 +62,6 @@ const Feed: React.FC = () => {
       </div> */}
       <div className="row-span-1 col-span-4 flex justify-center items-center">
         <User
-          profileUserName={profileUser.profileUserName}
-          profileUserAvatar={profileUser.avatar}
         />
       </div>
       <div className="row-span-2 col-span-4">
@@ -105,7 +88,6 @@ const Feed: React.FC = () => {
                   timestamp={post.timestamp}
                   username={post.username}
                   postUid={post.uid}
-                  updateProfile={updateProfile}
                   openCommentInput={openCommentInput}
                 />
               ))}

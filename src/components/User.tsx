@@ -1,5 +1,8 @@
 import React from 'react'
 import { auth } from "../firebase";
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/userSlice";
+import { selectProfileUser } from "../features/profileUserSlice";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import {
   Avatar,
@@ -8,10 +11,6 @@ import {
   Theme,
 } from "@material-ui/core";
 
-interface PROPS {
-  profileUserName: string;
-  profileUserAvatar: string;
-}
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     large: {
@@ -20,13 +19,24 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
-const User:React.FC<PROPS> = (props) => {
+const User:React.FC = () => {
   const classes = useStyles();
+  const user = useSelector(selectUser);
+  const profileUser = useSelector(selectProfileUser);
   return (
     <div className="flex items-center">
-      <Avatar className={classes.large} src={props.profileUserAvatar}/>
+      <Avatar
+        className={classes.large}
+        src={profileUser.avatar
+          ? profileUser.avatar
+          : user.photoUrl
+        }
+      />
       <h3 className="font-bold text-xl text-white ml-5">
-        {props.profileUserName}
+        {profileUser.name
+          ? profileUser.name
+          : user.displayName
+        }
       </h3>
       <button
         className="cursor-pointer bg-transparent border-none outline-none text-white"

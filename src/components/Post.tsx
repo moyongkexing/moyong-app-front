@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { db } from "../firebase";
 import { useSelector } from "react-redux";
 import { selectUser } from "../features/userSlice";
@@ -6,6 +7,7 @@ import { Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AddCommentIcon from '@material-ui/icons/AddComment';
 import DeleteIcon from "@material-ui/icons/Delete";
+import { updateProfileUser } from "../features/profileUserSlice";
 interface PROPS {
   postId: string;
   avatar: string;
@@ -14,7 +16,6 @@ interface PROPS {
   timestamp: any;
   username: string;
   postUid: string;
-  updateProfile: any;
   openCommentInput: any;
 }
 interface COMMENT {
@@ -34,8 +35,8 @@ const useStyles = makeStyles((theme) => ({
 // -----------Postコンポーネント-----------
 const Post: React.FC<PROPS> = (props) => {
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
   const classes = useStyles();
-  const [openComments, setOpenComments] = useState(false);
   const [comments, setComments] = useState<COMMENT[]>([]);
   
   // 投稿削除
@@ -68,13 +69,21 @@ const Post: React.FC<PROPS> = (props) => {
       unSub();
     };
   }, [props.postId]);
+  const setProfile = (name:string, avatar:string) => {
+    dispatch(
+      updateProfileUser({
+        name: name,
+        avatar: avatar,
+      })
+    );
+  }
   return (
     <div className="flex ml-16 pb-3">
       <div className="p-5">
         <Avatar
           src={props.avatar}
           className="cursor-pointer"
-          onClick={() => props.updateProfile(props.username, props.avatar)}/>
+          onClick={() => setProfile(props.username, props.avatar)}/>
       </div>
       <div className="flex-1 p-4">
         <div>
@@ -82,7 +91,7 @@ const Post: React.FC<PROPS> = (props) => {
             <h3>
               <span
                 className="text-lg font-bold text-whiteSmoke cursor-pointer mr-3"
-                onClick={() => props.updateProfile(props.username, props.avatar)}
+                onClick={() => setProfile(props.username, props.avatar)}
               >{props.username}</span>
               <span className="text-gray-500 text-sm">
                 {new Date(props.timestamp?.toDate()).toLocaleString()}
