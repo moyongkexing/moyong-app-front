@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import axios from 'axios'
 import { auth, provider, storage } from "../firebase";
 import { updateUserProfile } from "../features/userSlice";
 
@@ -132,6 +133,25 @@ const Auth:React.FC = () => {
       })
     )
   };
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+
+    //追加
+    axios.post("http://localhost:3000/signup",
+      {
+          user: {
+              email: email,
+              password: password,
+          }
+      },
+      { withCredentials: true }
+    ).then(response => {
+        console.log("registration res", response)
+    }).catch(error => {
+        console.log("registration error", error)
+    })
+    e.preventDefault()
+
+}
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
