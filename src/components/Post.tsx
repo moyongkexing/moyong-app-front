@@ -100,17 +100,17 @@ const Post: React.FC<PROPS> = (props) => {
           </div>
           <div className="mb-3">
             {props.trainingArray.map((record: any, index: number) => (
-              <div className="text-whiteSmoke font-semibold" key={index}>
+              <table className="text-whiteSmoke font-semibold" key={index}>
                 <td className="mr-1">{record.trainingName}</td>
                 <td className="mr-1">
                   {
-                    record.trainingWeight == "none"
+                    record.trainingWeight === "none"
                     ? ""
                     : record.trainingWeight
                   }
                   </td>
                 <td className="mr-1">{record.trainingReps}回</td>
-              </div>
+              </table>
             ))}
           </div>
         </div>

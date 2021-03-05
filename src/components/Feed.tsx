@@ -5,10 +5,6 @@ import TrainingInput from './TrainingInput';
 import CommentInput from './CommentInput';
 import Post from './Post';
 import User from './User';
-interface User {
-  profileUserName: string;
-  avatar: string;
-}
 interface Post {
   id: string;
   avatar: string;
