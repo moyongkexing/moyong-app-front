@@ -254,7 +254,8 @@ const Auth:React.FC = () => {
               disabled={
                 isLogin
                 ? !email || password.length < 6
-                : !username || !email || password.length < 6 || !avatarImage
+                // : !username || !email || password.length < 6 || !avatarImage
+                : !username || !email || password.length < 6
               }
               fullWidth
               variant="contained"
