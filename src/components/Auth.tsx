@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import styles from "./Auth.module.css";
+import axios from 'axios'
 import { auth, provider, storage } from "../firebase";
 import { updateUserProfile } from "../features/userSlice";
+
 import {
   Avatar,
   Button,
@@ -107,8 +108,32 @@ const Auth:React.FC = () => {
   const signInEmail = async () => {
     await auth.signInWithEmailAndPassword(email, password);
   };
-  const signUpEmail = async () => {
-    const authUser = await auth.createUserWithEmailAndPassword(email, password);
+  // const signUpEmail = async () => {
+  //   const authUser = await auth.createUserWithEmailAndPassword(email, password);
+  //   let url = "";
+  //   if (avatarImage) {
+  //     const S =
+  //       "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  //     const N = 16;
+  //     const randomChar = Array.from(crypto.getRandomValues(new Uint32Array(N)))
+  //       .map((n) => S[n % S.length])
+  //       .join("");
+  //     const fileName = randomChar + "_" + avatarImage.name;
+  //     await storage.ref(`avatars/${fileName}`).put(avatarImage);
+  //     url = await storage.ref("avatars").child(fileName).getDownloadURL();
+  //   }
+  //   await authUser.user?.updateProfile({
+  //     displayName: username,
+  //     photoURL: url,
+  //   });
+  //   dispatch(
+  //     updateUserProfile({
+  //       displayName: username,
+  //       photoUrl: url,
+  //     })
+  //   )
+  // };
+  const signUpEmail1 = async () => {
     let url = "";
     if (avatarImage) {
       const S =
@@ -121,17 +146,30 @@ const Auth:React.FC = () => {
       await storage.ref(`avatars/${fileName}`).put(avatarImage);
       url = await storage.ref("avatars").child(fileName).getDownloadURL();
     }
-    await authUser.user?.updateProfile({
-      displayName: username,
-      photoURL: url,
-    });
+    axios.post("http://localhost:3000/signup",
+      {
+          user: {
+              name: username,
+              email: email,
+              password: password,
+              // avatar: url,
+          }
+      },
+      { withCredentials: true }
+    ).then(response => {
+        console.log("registration res", response)
+    }).catch(error => {
+        console.log("registration error", error)
+    })
     dispatch(
       updateUserProfile({
         displayName: username,
         photoUrl: url,
       })
     )
-  };
+    // e.preventDefault()
+
+}
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -216,7 +254,8 @@ const Auth:React.FC = () => {
               disabled={
                 isLogin
                 ? !email || password.length < 6
-                : !username || !email || password.length < 6 || !avatarImage
+                // : !username || !email || password.length < 6 || !avatarImage
+                : !username || !email || password.length < 6
               }
               fullWidth
               variant="contained"
@@ -234,7 +273,7 @@ const Auth:React.FC = () => {
                   }
                   : async () => {
                     try {
-                      await signUpEmail();
+                      await signUpEmail1();
                     } catch (err) {
                       alert(err.message);
                     }
