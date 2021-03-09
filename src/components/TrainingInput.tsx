@@ -182,19 +182,17 @@ const TrainingInput: React.FC = () => {
         />
         <IconButton
           disabled={!trainingRecord.trainingName}
-          className="w-3/12 focus:outline-none"
+          className="focus:outline-none"
         >
-          <label>
-            <AddCircleIcon
-              onClick={() => saveTrainingRecord()}
-              fontSize="large"
-              className={
-                trainingRecord.trainingName
-                ? "text-enableBtn cursor-pointer m-2"
-                : "text-disableBtn cursor-pointer m-2"
-              }
-            />
-          </label>
+          <AddCircleIcon
+            onClick={() => saveTrainingRecord()}
+            fontSize="large"
+            className={
+              trainingRecord.trainingName
+              ? "text-enableBtn cursor-pointer"
+              : "text-disableBtn cursor-pointer"
+            }
+          />
         </IconButton>
       </div>
       <List dense={true} className="w-11/12 h-2/5 m-0">
@@ -226,8 +224,8 @@ const TrainingInput: React.FC = () => {
               fontSize="large"
               className={
                 image
-                ? "text-whiteSmoke cursor-pointer w-9 h-9"
-                : "text-disableBtn cursor-pointer w-9 h-9"
+                ? "text-whiteSmoke cursor-pointer"
+                : "text-disableBtn cursor-pointer"
               }
             />
             <input

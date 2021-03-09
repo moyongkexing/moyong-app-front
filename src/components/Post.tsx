@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { db } from "../firebase";
 import { useSelector } from "react-redux";
 import { selectUser } from "../features/userSlice";
-import { Avatar } from "@material-ui/core";
+import { Avatar, IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AddCommentIcon from '@material-ui/icons/AddComment';
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -119,16 +119,20 @@ const Post: React.FC<PROPS> = (props) => {
             <img className="object-contain rounded-2xl max-h-60" src={props.image} alt="tweet" />
           </div>
         )}
-        <AddCommentIcon
-          className="cursor-pointer text-whiteSmoke"
-          onClick={() => props.openCommentInput(props.postId, props.avatar)}
-        />
+        <IconButton className="focus:outline-none">
+          <AddCommentIcon
+            className="cursor-pointer text-whiteSmoke"
+            onClick={() => props.openCommentInput(props.postId, props.avatar)}
+          />
+        </IconButton>
         {
           user.uid === props.postUid &&
-          <DeleteIcon
-          className="cursor-pointer text-whiteSmoke"
-          onClick={deletePost}
-        />
+          <IconButton  className="focus:outline-none">
+            <DeleteIcon
+              className="cursor-pointer text-whiteSmoke"
+              onClick={deletePost}
+            />
+          </IconButton>
         }
         {
           comments.map((com) => (
