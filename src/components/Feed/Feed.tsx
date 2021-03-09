@@ -59,6 +59,7 @@ const Feed: React.FC = () => {
       <div className="row-span-1 col-span-4 flex justify-center items-center">
         <User
         />
+        <h1>Hello</h1>
       </div>
       <div className="row-span-2 col-span-4">
         <div className={styles.underLeft}>
