@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { db } from "../firebase";
+import { db } from "../../firebase";
 import { useSelector } from "react-redux";
-import { selectUser } from "../features/userSlice";
+import { selectUser } from "../../features/userSlice";
 import { Avatar, IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AddCommentIcon from '@material-ui/icons/AddComment';
 import DeleteIcon from "@material-ui/icons/Delete";
-import { updateProfileUser } from "../features/profileUserSlice";
+import { updateProfileUser } from "../../features/profileUserSlice";
 interface PROPS {
   postId: string;
   avatar: string;

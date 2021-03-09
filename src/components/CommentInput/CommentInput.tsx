@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { db } from "../firebase";
+import { db } from "../../firebase";
 import firebase from "firebase/app";
 import { useSelector } from "react-redux";
-import { selectUser } from "../features/userSlice";
+import { selectUser } from "../../features/userSlice";
 import SendIcon from "@material-ui/icons/Send";
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import {

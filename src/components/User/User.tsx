@@ -1,8 +1,8 @@
 import React from 'react'
-import { auth } from "../firebase";
+import { auth } from "../../firebase";
 import { useSelector } from "react-redux";
-import { selectUser } from "../features/userSlice";
-import { selectProfileUser } from "../features/profileUserSlice";
+import { selectUser } from "../../features/userSlice";
+import { selectProfileUser } from "../../features/profileUserSlice";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import {
   Avatar,

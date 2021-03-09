@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { storage, db } from "../firebase";
+import { storage, db } from "../../firebase";
 import styles from "./TrainingInput.module.scss";
 import firebase from "firebase/app";
 import { useSelector } from "react-redux";
-import { selectUser } from "../features/userSlice";
+import { selectUser } from "../../features/userSlice";
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import SendIcon from '@material-ui/icons/Send';

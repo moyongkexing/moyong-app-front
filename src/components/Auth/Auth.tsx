@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import axios from 'axios'
-import { auth, provider, storage } from "../firebase";
-import { updateUserProfile } from "../features/userSlice";
+import { auth, provider, storage } from "../../firebase";
+import { updateUserProfile } from "../../features/userSlice";
 
 import {
   Avatar,
