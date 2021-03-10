@@ -183,9 +183,9 @@ const TrainingInput: React.FC = () => {
         <IconButton
           disabled={!trainingRecord.trainingName}
           className="focus:outline-none"
+          onClick={() => saveTrainingRecord()}
         >
           <AddCircleIcon
-            onClick={() => saveTrainingRecord()}
             fontSize="large"
             className={
               trainingRecord.trainingName
