@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, cleanup } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import userReducer from '../../features/userSlice';
 import profileUserReducer from '../../features/profileUserSlice';
 import Feed from "./Feed";
@@ -26,6 +26,5 @@ describe("Rendering", () => {
         <Feed />
       </Provider>
     );
-    expect(screen.getByText("Hello")).toBeInTheDocument();
   });
 });

@@ -57,15 +57,17 @@ const Feed: React.FC = () => {
         </div>
       </div> */}
       <div className="row-span-1 col-span-4 flex justify-center items-center">
-        <User
-        />
+        <User/>
       </div>
       <div className="row-span-2 col-span-4">
         <div className={styles.underLeft}>
           {
             displayCommentInput
-            ? <CommentInput commentPost={commentPost} setDisplayCommentInput={setDisplayCommentInput}/>
-            : <TrainingInput />
+            ? <CommentInput 
+                commentPost={commentPost}
+                setDisplayCommentInput={setDisplayCommentInput}
+              />
+            : <TrainingInput/>
           }
         </div>
       </div>
