@@ -150,11 +150,13 @@ const TrainingInput: React.FC = () => {
   return (
     <form onSubmit={postTrainingRecords} className="flex flex-col items-center">
       <Avatar
+        data-testid="avatar"
         className="w-14 h-14 mt-7"
         src={user.photoUrl}
       />
       <div className="w-9/12">
         <input
+          data-testid="trainingNameInput"
           className="w-full mt-4 bg-inputBg text-whiteSmoke px-4 py-2 rounded-3xl outline-none border-none text-lg"
           placeholder="トレーニング名"
           type="text"
@@ -162,6 +164,7 @@ const TrainingInput: React.FC = () => {
           onChange={(e) => setTrainingRecord({...trainingRecord, trainingName: e.target.value})}
         />
         <select
+          data-testid="trainingWeightInput"
           className="w-full mt-4 bg-inputBg text-whiteSmoke px-4 py-2 rounded-3xl outline-none border-none text-lg"
           value={trainingRecord.trainingWeight}
           onChange={(e) => setTrainingRecord({...trainingRecord, trainingWeight: e.target.value})}
@@ -173,6 +176,7 @@ const TrainingInput: React.FC = () => {
           ))}
         </select>
         <input
+          data-testid="trainingRepsInput"
           className="w-9/12 mt-4 bg-inputBg text-whiteSmoke px-4 py-2 rounded-3xl outline-none border-none text-lg appearance-none no-spin::-webkit-inner-spin-button o-spin::-webkit-outer-spin-button"
           min="0"
           placeholder="reps"
@@ -181,6 +185,7 @@ const TrainingInput: React.FC = () => {
           onChange={(e) => setTrainingRecord({...trainingRecord, trainingReps: e.target.value})}
         />
         <IconButton
+          data-testid="saveButton"
           disabled={!trainingRecord.trainingName}
           className="focus:outline-none"
           onClick={() => saveTrainingRecord()}
@@ -195,7 +200,7 @@ const TrainingInput: React.FC = () => {
           />
         </IconButton>
       </div>
-      <List dense={true} className="w-11/12 h-2/5 m-0">
+      <List data-testid="trainingRecordsList" dense={true} className="w-11/12 h-2/5 m-0">
         <div className={styles.scroll}>
           {trainingRecords.map((record, index) => (
             <ListItem key={index}>
@@ -218,7 +223,7 @@ const TrainingInput: React.FC = () => {
         </div>
       </List>
       <div className="w-9/12 flex justify-between items-center mb-5">
-        <IconButton className="focus:outline-none">
+        <IconButton data-testid="uploadButton" className="focus:outline-none">
           <label>
             <AddPhotoAlternateIcon
               fontSize="large"
@@ -236,6 +241,7 @@ const TrainingInput: React.FC = () => {
           </label>
         </IconButton>
         <button
+          data-testid="submitButton"
           type="submit"
           disabled={!trainingRecords.length}
           className={trainingRecords.length
