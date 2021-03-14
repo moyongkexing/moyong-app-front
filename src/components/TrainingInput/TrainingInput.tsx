@@ -19,7 +19,9 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemSecondaryAction,
+  TextField,
 } from "@material-ui/core";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
 interface TrainingRecord {
   trainingName: string;
@@ -175,6 +177,14 @@ const TrainingInput: React.FC = () => {
             </option>
           ))}
         </select>
+        <Autocomplete
+          freeSolo
+          className="w-full mt-4 bg-inputBg text-whiteSmoke px-4 py-2 rounded-3xl outline-none border-none text-lg"
+          options={weightList.map((weight) => weight.value)}
+          renderInput={(params) => (
+            <TextField {...params} label="freeSolo" margin="normal" />
+          )}
+        />
         <input
           data-testid="trainingRepsInput"
           className="w-9/12 mt-4 bg-inputBg text-whiteSmoke px-4 py-2 rounded-3xl outline-none border-none text-lg appearance-none no-spin::-webkit-inner-spin-button o-spin::-webkit-outer-spin-button"
