@@ -36,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
 const Post: React.FC<PROPS> = (props) => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
-  const classes = useStyles();
   const [comments, setComments] = useState<COMMENT[]>([]);
   
   // 投稿削除
@@ -139,8 +138,17 @@ const Post: React.FC<PROPS> = (props) => {
         {
           comments.map((com) => (
             <div key={com.id} className="flex items-center break-all m-3">
-              <Avatar src={com.avatar} className={classes.small}/>
-              <span className="font-semibold text-whiteSmoke mr-3">@{com.username}</span>
+              <Avatar 
+                src={com.avatar}
+                className="cursor-pointer w-7 h-7 mr-1"
+                onClick={() => setProfile(com.username, com.avatar)}
+              />
+              <span
+                className="font-semibold text-whiteSmoke mr-3 cursor-pointer"
+                onClick={() => setProfile(com.username, com.avatar)}
+              >
+                @{com.username}
+              </span>
               <span className="text-sm text-whiteSmoke mr-3">{com.text}</span>
               <span className="text-gray-500 text-sm">{new Date(com.timestamp?.toDate()).toLocaleString()}</span>
             </div>
