@@ -19,16 +19,13 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemSecondaryAction,
-  TextField,
 } from "@material-ui/core";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-
 interface TrainingRecord {
+
   trainingName: string;
   trainingWeight: string;
   trainingReps: string;
 }
-
 const weightList = [
   {value: 'none', label: 'なし'},
   {value: '10lbs | 4.5kg', label: '10lbs | 4.5kg'},
@@ -51,6 +48,72 @@ const weightList = [
   {value: '180lbs | 82kg', label: '180lbs | 82kg'},
   {value: '190lbs | 86kg', label: '190lbs | 86kg'},
   {value: '200lbs | 91kg', label: '200lbs | 91kg'},
+];
+const weightList1 = [
+  {value: 'none'},
+  {value: '10lbs | 4.5kg'},
+  {value: '20lbs | 9kg'},
+  {value: '30lbs | 14kg'},
+  {value: '40lbs | 18kg'},
+  {value: '50lbs | 23kg'},
+  {value: '60lbs | 27kg'},
+  {value: '70lbs | 32kg'},
+  {value: '80lbs | 36kg'},
+  {value: '90lbs | 41kg'},
+  {value: '100lbs | 45kg'},
+  {value: '110lbs | 50kg'},
+  {value: '120lbs | 54kg'},
+  {value: '130lbs | 59kg'},
+  {value: '140lbs | 64kg'},
+  {value: '150lbs | 68kg'},
+  {value: '160lbs | 73kg'},
+  {value: '170lbs | 77kg'},
+  {value: '180lbs | 82kg'},
+  {value: '190lbs | 86kg'},
+  {value: '200lbs | 91kg'},
+];
+const weightList2 = [
+  'none',
+  '10lbs',
+  '20lbs',
+  '30lbs',
+  '40lbs',
+  '50lbs',
+  '60lbs',
+  '70lbs',
+  '80lbs',
+  '90lbs',
+  '100lbs',
+  '110lbs',
+  '120lbs',
+  '130lbs',
+  '140lbs',
+  '150lbs',
+  '160lbs',
+  '170lbs',
+  '180lbs',
+  '190lbs',
+  '200lbs',
+  '4.5kg',
+  '9kg',
+  '14kg',
+  '18kg',
+  '23kg',
+  '27kg',
+  '32kg',
+  '36kg',
+  '41kg',
+  '45kg',
+  '50kg',
+  '54kg',
+  '59kg',
+  '64kg',
+  '68kg',
+  '73kg',
+  '77kg',
+  '82kg',
+  '86kg',
+  '91kg',
 ];
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -79,7 +142,7 @@ const TrainingInput: React.FC = () => {
   const [ image, setImage] = useState<File | null>(null);
   const [ trainingRecord, setTrainingRecord ] = useState<TrainingRecord>({
     trainingName: "",
-    trainingWeight: "10lbs | 4.5kg",
+    trainingWeight: "",
     trainingReps: "",
   })
   const [ trainingRecords, setTrainingRecords ] = useState<TrainingRecord[]>([]);
@@ -87,7 +150,7 @@ const TrainingInput: React.FC = () => {
     setTrainingRecords([...trainingRecords, trainingRecord]);
     setTrainingRecord({
       trainingName: "",
-      trainingWeight: "10lbs | 4.5kg",
+      trainingWeight: "",
       trainingReps: "",
     })
   };
@@ -150,10 +213,10 @@ const TrainingInput: React.FC = () => {
     setTrainingRecords([]);
   };
   return (
-    <form onSubmit={postTrainingRecords} className="flex flex-col items-center">
+    <form onSubmit={postTrainingRecords} className="w-full flex flex-col items-center">
       <Avatar
         data-testid="avatar"
-        className="w-14 h-14 mt-7"
+        className="w-14 h-14 mt-7 mb-3"
         src={user.photoUrl}
       />
       <div className="w-9/12">
@@ -165,31 +228,26 @@ const TrainingInput: React.FC = () => {
           value={trainingRecord.trainingName}
           onChange={(e) => setTrainingRecord({...trainingRecord, trainingName: e.target.value})}
         />
-        <select
+        <input
           data-testid="trainingWeightInput"
+          type="text"
+          autoComplete="on"
+          list="weightList"
+          placeholder="重量"
           className="w-full mt-4 bg-inputBg text-whiteSmoke px-4 py-2 rounded-3xl outline-none border-none text-lg"
-          value={trainingRecord.trainingWeight}
           onChange={(e) => setTrainingRecord({...trainingRecord, trainingWeight: e.target.value})}
-        >
-          {weightList.map((weight) => (
-            <option key={weight.value} value={weight.value}>
-              {weight.label}
+        />
+        <datalist id="weightList">
+          {weightList2.map((weight) => (
+            <option value={weight}>
             </option>
           ))}
-        </select>
-        <Autocomplete
-          freeSolo
-          className="w-full mt-4 bg-inputBg text-whiteSmoke px-4 py-2 rounded-3xl outline-none border-none text-lg"
-          options={weightList.map((weight) => weight.value)}
-          renderInput={(params) => (
-            <TextField {...params} label="freeSolo" margin="normal" />
-          )}
-        />
+        </datalist>
         <input
           data-testid="trainingRepsInput"
           className="w-9/12 mt-4 bg-inputBg text-whiteSmoke px-4 py-2 rounded-3xl outline-none border-none text-lg appearance-none no-spin::-webkit-inner-spin-button o-spin::-webkit-outer-spin-button"
           min="0"
-          placeholder="reps"
+          placeholder="回数"
           type="number"
           value={trainingRecord.trainingReps}
           onChange={(e) => setTrainingRecord({...trainingRecord, trainingReps: e.target.value})}

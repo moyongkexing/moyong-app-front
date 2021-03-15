@@ -29,7 +29,7 @@ const CommentInput: React.FC<PROPS> = (props) => {
   return (
     <>
       <form onSubmit={newComment} className="w-full flex flex-col items-center">
-        <div className="flex mt-7 items-center ">
+        <div className="flex mt-7 mb-3 items-center ">
           <Avatar
             data-testid="avatarSender"
             className="w-14 h-14 mx-4"
