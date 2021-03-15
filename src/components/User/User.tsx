@@ -1,8 +1,8 @@
 import React from 'react'
-import { auth } from "../firebase";
+import { auth } from "../../firebase";
 import { useSelector } from "react-redux";
-import { selectUser } from "../features/userSlice";
-import { selectProfileUser } from "../features/profileUserSlice";
+import { selectUser } from "../../features/userSlice";
+import { selectProfileUser } from "../../features/profileUserSlice";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import {
   Avatar,
@@ -26,19 +26,21 @@ const User:React.FC = () => {
   return (
     <div className="flex items-center">
       <Avatar
+        data-testid="avatar"
         className={classes.large}
         src={profileUser.avatar
           ? profileUser.avatar
           : user.photoUrl
         }
       />
-      <h3 className="font-bold text-xl text-white ml-5">
+      <h3 data-testid="profileUsername" className="font-bold text-xl text-white ml-5">
         {profileUser.name
           ? profileUser.name
           : user.displayName
         }
       </h3>
       <button
+        data-testid="signOut"
         className="cursor-pointer bg-transparent border-none outline-none text-white"
         onClick={async () => {
           await auth.signOut();

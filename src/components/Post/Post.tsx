@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { db } from "../firebase";
+import { db } from "../../firebase";
 import { useSelector } from "react-redux";
-import { selectUser } from "../features/userSlice";
-import { Avatar } from "@material-ui/core";
+import { selectUser } from "../../features/userSlice";
+import { Avatar, IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AddCommentIcon from '@material-ui/icons/AddComment';
 import DeleteIcon from "@material-ui/icons/Delete";
-import { updateProfileUser } from "../features/profileUserSlice";
+import { updateProfileUser } from "../../features/profileUserSlice";
 interface PROPS {
   postId: string;
   avatar: string;
@@ -81,6 +81,7 @@ const Post: React.FC<PROPS> = (props) => {
     <div className="flex ml-16 pb-3">
       <div className="p-5">
         <Avatar
+          data-testid="avatar"
           src={props.avatar}
           className="cursor-pointer"
           onClick={() => setProfile(props.username, props.avatar)}/>
@@ -90,10 +91,11 @@ const Post: React.FC<PROPS> = (props) => {
           <div className="mb-1">
             <h3>
               <span
+                data-testid="username"
                 className="text-lg font-bold text-whiteSmoke cursor-pointer mr-3"
                 onClick={() => setProfile(props.username, props.avatar)}
               >{props.username}</span>
-              <span className="text-gray-500 text-sm">
+              <span data-testid="date" className="text-gray-500 text-sm">
                 {new Date(props.timestamp?.toDate()).toLocaleString()}
               </span>
             </h3>
@@ -101,15 +103,15 @@ const Post: React.FC<PROPS> = (props) => {
           <div className="mb-3">
             {props.trainingArray.map((record: any, index: number) => (
               <table className="text-whiteSmoke font-semibold" key={index}>
-                <td className="mr-1">{record.trainingName}</td>
-                <td className="mr-1">
+                <td data-testid="trainingName" className="mr-1">{record.trainingName}</td>
+                <td data-testid="trainingWeight" className="mr-1">
                   {
                     record.trainingWeight === "none"
                     ? ""
                     : record.trainingWeight
                   }
                   </td>
-                <td className="mr-1">{record.trainingReps}回</td>
+                <td data-testid="trainingReps" className="mr-1">{record.trainingReps}回</td>
               </table>
             ))}
           </div>
@@ -119,16 +121,20 @@ const Post: React.FC<PROPS> = (props) => {
             <img className="object-contain rounded-2xl max-h-60" src={props.image} alt="tweet" />
           </div>
         )}
-        <AddCommentIcon
-          className="cursor-pointer text-whiteSmoke"
-          onClick={() => props.openCommentInput(props.postId, props.avatar)}
-        />
+        <IconButton data-testid="addCommentButton" className="focus:outline-none">
+          <AddCommentIcon
+            className="cursor-pointer text-whiteSmoke"
+            onClick={() => props.openCommentInput(props.postId, props.avatar)}
+          />
+        </IconButton>
         {
           user.uid === props.postUid &&
-          <DeleteIcon
-          className="cursor-pointer text-whiteSmoke"
-          onClick={deletePost}
-        />
+          <IconButton  className="focus:outline-none">
+            <DeleteIcon
+              className="cursor-pointer text-whiteSmoke"
+              onClick={deletePost}
+            />
+          </IconButton>
         }
         {
           comments.map((com) => (
