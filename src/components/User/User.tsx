@@ -36,7 +36,6 @@ interface Props {
 }
 const User:React.FC<Props> = (props) => {
   const classes = useStyles();
-  const user = useSelector(selectUser);
   const [ commits, setCommits ] = useState<Commit[]>([]);
   
   useEffect(() => {
@@ -138,17 +137,16 @@ const User:React.FC<Props> = (props) => {
                   return null;
                 }
                 return {
-                  "data-tip": `count: ${value.count}`
-                }
+                  "data-tip": `${value.date} has count: ${
+                    value.count
+                  }`,
+                };
               }}
             />
           </div>
           <ReactTooltip />
         </div>
       </div>
-      {commits.map((cm) => {
-        <p>{cm.date}</p>
-      })}
     </div>
   )
 }
