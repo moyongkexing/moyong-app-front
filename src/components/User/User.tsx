@@ -43,10 +43,28 @@ const User:React.FC = () => {
         dt: string,
         ct: number,
       };
+      const dummyData = [
+        { dt: "2021-3-17", ct: 4 },
+        { dt: "2021-3-16", ct: 2 },
+        { dt: "2021-2-15", ct: 1 },
+        { dt: "2021-3-14", ct: 3 },
+        { dt: "2021-1-13", ct: 2 },
+        { dt: "2021-3-17", ct: 4 },
+        { dt: "2021-3-11", ct: 2 },
+        { dt: "2021-3-10", ct: 1 },
+        { dt: "2021-1-10", ct: 6 },
+        { dt: "2021-2-10", ct: 3 },
+        { dt: "2021-3-10", ct: 4 },
+        { dt: "2021-1-10", ct: 2 },
+        { dt: "2021-2-15", ct: 3 },
+        { dt: "2021-2-16", ct: 3 },
+        { dt: "2021-2-18", ct: 2 },
+        { dt: "2021-2-10", ct: 4 },
+      ]
       let commitData: commitData[] = [];
       querySnapshot.docs.map((doc) => {
         commitData.push({
-          dt: doc.data().timestamp.toDate().toLocaleDateString(),
+          dt: doc.data().timestamp.toDate().toLocaleDateString().replace(/\u002f/g, '-'),
           ct: doc.data().training_array.length,
         })
       });
@@ -98,33 +116,35 @@ const User:React.FC = () => {
         </button>
       </div>
       <div className="mt-5 text-whiteSmoke">
-        <CalendarHeatmap
-          startDate={new Date(new Date().setDate(new Date().getDate() - 120))}
-          endDate={new Date()}
-          values={commits}
-          classForValue={(value) => {
-            if (!value) {
-              return "color-empty";
-            } else if (value.count > 4) {
-              return `color-scale-4`
-            }
-            return `color-scale-${value.count}`;
-          }}
-          tooltipDataAttrs={(value:any) => {
-            if (!value || !value.date) {
-              return null;
-            }
-            return {
-              "data-tip": `${value.date} has count: ${
-                value.count
-              }`,
-            };
-          }}
-        />
-        <ReactTooltip/>
+        <div className="container">
+          <div>
+            <CalendarHeatmap
+              startDate={new Date(new Date().setDate(new Date().getDate() - 120))}
+              endDate={new Date()}
+              values={commits}
+              classForValue={(value) => {
+                if (!value) {
+                  return "color-empty";
+                } else if (value.count > 4) {
+                  return `color-scale-4`
+                }
+                return `color-scale-${value.count}`;
+              }}
+              tooltipDataAttrs={(value:any) => {
+                if (!value || !value.date) {
+                  return null;
+                }
+                return {
+                  "data-tip": `count: ${value.count}`
+                }
+              }}
+            />
+          </div>
+          <ReactTooltip />
+        </div>
       </div>
     </div>
   )
 }
 
-export default User
+export default User;
