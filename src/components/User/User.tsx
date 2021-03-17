@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { auth, db } from "../../firebase";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../features/userSlice";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import {
   Avatar,
@@ -68,8 +66,7 @@ const User:React.FC<Props> = (props) => {
           ct: doc.data().training_array.length,
         })
       });
-      const result = Array.from(new Set(commitData.map(data => data.dt)))
-      const res = result.map((d) => {
+      const result = Array.from(new Set(commitData.map(data => data.dt))).map((d) => {
         return {
           dt: d,
           ct: commitData.filter((obj) => obj.dt === d ).reduce(function(sum, element) {
@@ -78,7 +75,7 @@ const User:React.FC<Props> = (props) => {
         }
       })
       setCommits(
-        res.map((obj) => ({
+        result.map((obj) => ({
           date: obj.dt,
           count: obj.ct,
         }))
@@ -118,7 +115,7 @@ const User:React.FC<Props> = (props) => {
         </button>
       </div>
       <div className="mt-5 text-whiteSmoke">
-        <div className="container">
+        <div className="container w-full">
           <div>
             <CalendarHeatmap
               startDate={new Date(new Date().setDate(new Date().getDate() - 120))}
@@ -137,9 +134,7 @@ const User:React.FC<Props> = (props) => {
                   return null;
                 }
                 return {
-                  "data-tip": `${value.date} has count: ${
-                    value.count
-                  }`,
+                  "data-tip": `${value.count} trainings on ${value.date}`,
                 };
               }}
             />
