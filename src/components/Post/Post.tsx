@@ -83,7 +83,7 @@ const Post: React.FC<Props> = (props) => {
             <h3>
               <span
                 data-testid="username"
-                className="text-lg font-bold text-whiteSmoke cursor-pointer mr-3"
+                className="font-bold text-lg text-whiteSmoke cursor-pointer mr-3"
                 onClick={() => 
                   dispatch(
                     setShowUser({

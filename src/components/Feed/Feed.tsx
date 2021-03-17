@@ -50,16 +50,11 @@ const Feed: React.FC = () => {
     };
   }, []);
   return (
-    <div className="grid grid-rows-3 grid-cols-12 grid-flow-col">
-      {/* <div className="row-span-3 col-span-1">
-        <div className={styles.sideBar}>
-          <Header/>
-        </div>
-      </div> */}
-      <div className="row-span-1 col-span-4 flex justify-center items-center">
+    <div className="grid grid-rows-3 grid-cols-12 grid-flow-col w-full">
+      <div className="row-span-1 col-span-4 w-full flex jusity-center items-center">
         <User />
       </div>
-      <div className="row-span-2 col-span-4">
+      <div className="row-span-2 col-span-4 w-full">
         <div className={styles.underLeft}>
           {
             displayCommentInput
@@ -71,8 +66,7 @@ const Feed: React.FC = () => {
           }
         </div>
       </div>
-      <div className="row-span-3 col-span-8 bg-boxColor">
-        {/* <div className={styles.header}></div> */}
+      <div className="row-span-3 col-span-8">
         <div className={styles.scroll}>
           {posts.length &&
             <>

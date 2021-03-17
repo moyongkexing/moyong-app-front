@@ -84,28 +84,33 @@ const User:React.FC = () => {
     };
   }, [showUser.name])
   return (
-    <div className="flex flex-col">
-      <div className="flex items-center">
+    <div className="flex flex-col items-center w-full">
+      <div className="flex items-center w-full">
         <Avatar
           data-testid="avatar"
-          className={classes.large}
+          className="w-20 h-20"
           src={showUser.avatar}
         />
-        <h3 data-testid="profileUsername" className="font-bold text-xl text-white ml-5">
-          {showUser.name}
-        </h3>
-        <button
-          data-testid="signOut"
-          className="cursor-pointer bg-transparent border-none outline-none text-white"
-          onClick={async () => {
-            await auth.signOut();
-          }}
-        >
-          <ExitToAppIcon/>
-        </button>
+        <div className="flex justify-between w-full">
+          <h3
+            data-testid="profileUsername"
+            className="font-bold text-xl text-white ml-5"
+          >
+            {showUser.name}
+          </h3>
+          <button
+            data-testid="signOut"
+            className="cursor-pointer bg-transparent border-none outline-none text-white"
+            onClick={async () => {
+              await auth.signOut();
+            }}
+          >
+            <ExitToAppIcon/>
+          </button>
+        </div>
       </div>
-      <div className="mt-5 text-whiteSmoke">
-        <div className="container w-full">
+      <div className="mt-5 text-whiteSmoke w-4/5">
+        <div className="container">
           <div>
             <CalendarHeatmap
               startDate={new Date(new Date().setDate(new Date().getDate() - 120))}

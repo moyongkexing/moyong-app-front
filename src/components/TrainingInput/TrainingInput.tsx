@@ -132,7 +132,7 @@ const TrainingInput: React.FC = () => {
     setTrainingRecords([]);
   };
   return (
-    <form onSubmit={postTrainingRecords} className="w-full flex flex-col items-center">
+    <form onSubmit={postTrainingRecords} className="flex flex-col items-center">
       <Avatar
         data-testid="avatar"
         className="w-14 h-14 mt-7 mb-3"
