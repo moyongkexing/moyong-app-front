@@ -2,13 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { db } from "../../firebase";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../features/userSlice";
+import { selectUser, setShowUser } from "../../features/userSlice";
 import { Avatar, IconButton } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import AddCommentIcon from '@material-ui/icons/AddComment';
 import DeleteIcon from "@material-ui/icons/Delete";
-import { updateProfileUser } from "../../features/profileUserSlice";
-interface PROPS {
+interface Props {
   postId: string;
   avatar: string;
   image: string;
@@ -18,27 +16,20 @@ interface PROPS {
   postUid: string;
   openCommentInput: any;
 }
-interface COMMENT {
+interface Comment {
   id: string;
   avatar: string;
   text: string;
   timestamp: any;
   username: string;
 }
-const useStyles = makeStyles((theme) => ({
-  small: {
-    width: theme.spacing(3),
-    height: theme.spacing(3),
-    marginRight: theme.spacing(1),
-  }
-}))
 // -----------Postコンポーネント-----------
-const Post: React.FC<PROPS> = (props) => {
+const Post: React.FC<Props> = (props) => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
-  const [comments, setComments] = useState<COMMENT[]>([]);
+  const [comments, setComments] = useState<Comment[]>([]);
   
-  // 投稿削除
+  // 筋トレ記録投稿削除
   const deletePost = () => {
     if (user.uid === props.postUid) {
       db.collection("training_posts").doc(props.postId).delete();
@@ -68,14 +59,6 @@ const Post: React.FC<PROPS> = (props) => {
       unSub();
     };
   }, [props.postId]);
-  const setProfile = (name:string, avatar:string) => {
-    dispatch(
-      updateProfileUser({
-        name: name,
-        avatar: avatar,
-      })
-    );
-  }
   return (
     <div className="flex ml-16 pb-3">
       <div className="p-5">
@@ -83,7 +66,16 @@ const Post: React.FC<PROPS> = (props) => {
           data-testid="avatar"
           src={props.avatar}
           className="cursor-pointer"
-          onClick={() => setProfile(props.username, props.avatar)}/>
+          // onClick={() => setProfile(props.username, props.avatar)}
+          onClick={() => 
+            dispatch(
+              setShowUser({
+                name: props.username,
+                avatar: props.avatar,
+              })
+            )
+          }
+        />
       </div>
       <div className="flex-1 p-4">
         <div>
@@ -92,7 +84,14 @@ const Post: React.FC<PROPS> = (props) => {
               <span
                 data-testid="username"
                 className="text-lg font-bold text-whiteSmoke cursor-pointer mr-3"
-                onClick={() => setProfile(props.username, props.avatar)}
+                onClick={() => 
+                  dispatch(
+                    setShowUser({
+                      name: props.username,
+                      avatar: props.avatar,
+                    })
+                  )
+                }
               >{props.username}</span>
               <span data-testid="date" className="text-gray-500 text-sm">
                 {new Date(props.timestamp?.toDate()).toLocaleString()}
@@ -141,11 +140,25 @@ const Post: React.FC<PROPS> = (props) => {
               <Avatar 
                 src={com.avatar}
                 className="cursor-pointer w-7 h-7 mr-1"
-                onClick={() => setProfile(com.username, com.avatar)}
+                onClick={() => 
+                  dispatch(
+                    setShowUser({
+                      name: com.username,
+                      avatar: com.avatar,
+                    })
+                  )
+                }
               />
               <span
                 className="font-semibold text-whiteSmoke mr-3 cursor-pointer"
-                onClick={() => setProfile(com.username, com.avatar)}
+                onClick={() => 
+                  dispatch(
+                    setShowUser({
+                      name: com.username,
+                      avatar: com.avatar,
+                    })
+                  )
+                }
               >
                 @{com.username}
               </span>

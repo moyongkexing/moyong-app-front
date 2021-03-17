@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { auth, db } from "../../firebase";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../features/userSlice";
-import { selectProfileUser } from "../../features/profileUserSlice";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import {
   Avatar,
@@ -27,40 +26,42 @@ interface Commit {
   date: string;
   count: number;
 }
-const User:React.FC = () => {
+interface commitData {
+  dt: string,
+  ct: number,
+};
+interface Props {
+  showUsername: string;
+  showUserAvatar: string;
+}
+const User:React.FC<Props> = (props) => {
   const classes = useStyles();
   const user = useSelector(selectUser);
-  const profileUser = useSelector(selectProfileUser);
   const [ commits, setCommits ] = useState<Commit[]>([]);
-  const [ commitUser, setCommitUser ] = useState("");
-
+  
   useEffect(() => {
     const unSub = db
     .collection("training_posts")
-    .where("username", "==", "たらお@redux難しい")
+    .where("username", "==", props.showUsername)
     .onSnapshot((querySnapshot) => {
-      interface commitData {
-        dt: string,
-        ct: number,
-      };
-      const dummyData = [
-        { dt: "2021-3-17", ct: 4 },
-        { dt: "2021-3-16", ct: 2 },
-        { dt: "2021-2-15", ct: 1 },
-        { dt: "2021-3-14", ct: 3 },
-        { dt: "2021-1-13", ct: 2 },
-        { dt: "2021-3-17", ct: 4 },
-        { dt: "2021-3-11", ct: 2 },
-        { dt: "2021-3-10", ct: 1 },
-        { dt: "2021-1-10", ct: 6 },
-        { dt: "2021-2-10", ct: 3 },
-        { dt: "2021-3-10", ct: 4 },
-        { dt: "2021-1-10", ct: 2 },
-        { dt: "2021-2-15", ct: 3 },
-        { dt: "2021-2-16", ct: 3 },
-        { dt: "2021-2-18", ct: 2 },
-        { dt: "2021-2-10", ct: 4 },
-      ]
+      // const dummyData = [
+      //   { dt: "2021-3-17", ct: 4 },
+      //   { dt: "2021-3-16", ct: 2 },
+      //   { dt: "2021-2-15", ct: 1 },
+      //   { dt: "2021-3-14", ct: 3 },
+      //   { dt: "2021-1-13", ct: 2 },
+      //   { dt: "2021-3-17", ct: 4 },
+      //   { dt: "2021-3-11", ct: 2 },
+      //   { dt: "2021-3-10", ct: 1 },
+      //   { dt: "2021-1-10", ct: 6 },
+      //   { dt: "2021-2-10", ct: 3 },
+      //   { dt: "2021-3-10", ct: 4 },
+      //   { dt: "2021-1-10", ct: 2 },
+      //   { dt: "2021-2-15", ct: 3 },
+      //   { dt: "2021-2-16", ct: 3 },
+      //   { dt: "2021-2-18", ct: 2 },
+      //   { dt: "2021-2-10", ct: 4 },
+      // ]
       let commitData: commitData[] = [];
       querySnapshot.docs.map((doc) => {
         commitData.push({
@@ -87,23 +88,25 @@ const User:React.FC = () => {
     return () => {
       unSub();
     };
-  }, [])
+  }, [props.showUsername])
   return (
     <div className="flex flex-col">
       <div className="flex items-center">
         <Avatar
           data-testid="avatar"
           className={classes.large}
-          src={profileUser.avatar
-            ? profileUser.avatar
-            : user.photoUrl
-          }
+          // src={profileUser.avatar
+          //   ? profileUser.avatar
+          //   : user.photoUrl
+          // }
+          src={props.showUserAvatar}
         />
         <h3 data-testid="profileUsername" className="font-bold text-xl text-white ml-5">
-          {profileUser.name
+          {/* {profileUser.name
             ? profileUser.name
             : user.displayName
-          }
+          } */}
+          {props.showUsername}
         </h3>
         <button
           data-testid="signOut"
@@ -143,6 +146,9 @@ const User:React.FC = () => {
           <ReactTooltip />
         </div>
       </div>
+      {commits.map((cm) => {
+        <p>{cm.date}</p>
+      })}
     </div>
   )
 }
