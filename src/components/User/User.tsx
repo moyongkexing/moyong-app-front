@@ -105,6 +105,8 @@ const User:React.FC = () => {
           classForValue={(value) => {
             if (!value) {
               return "color-empty";
+            } else if (value.count > 4) {
+              return `color-scale-4`
             }
             return `color-scale-${value.count}`;
           }}
@@ -120,14 +122,6 @@ const User:React.FC = () => {
           }}
         />
         <ReactTooltip/>
-      </div>
-      <div>
-        {commits.map((cm) => (
-          <>
-            <p>{cm.date}</p>
-            {/* <p>{cm.count}</p> */}
-          </>
-        ))}
       </div>
     </div>
   )
