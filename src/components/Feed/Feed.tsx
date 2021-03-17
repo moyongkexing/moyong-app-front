@@ -5,8 +5,6 @@ import TrainingInput from '../TrainingInput/TrainingInput';
 import CommentInput from '../CommentInput/CommentInput';
 import Post from '../Post/Post';
 import User from '../User/User';
-import { useSelector } from "react-redux";
-import { selectShowUser } from "../../features/userSlice";
 interface Post {
   id: string;
   avatar: string;
@@ -24,9 +22,6 @@ const Feed: React.FC = () => {
   const [ posts, setPosts] = useState<Post[]>([]);
   const [ displayCommentInput, setDisplayCommentInput ] = useState<boolean>(false);
   const [ commentPost, setCommentPost ] = useState<CommentPost>();
-  // const profileUser = useSelector(selectProfileUser);
-  const showUser = useSelector(selectShowUser);
-
   const openCommentInput = (id:string, avatar:string) => {
     setDisplayCommentInput(true);
     setCommentPost({
@@ -62,7 +57,7 @@ const Feed: React.FC = () => {
         </div>
       </div> */}
       <div className="row-span-1 col-span-4 flex justify-center items-center">
-        <User showUserAvatar={showUser.avatar} showUsername={showUser.name}/>
+        <User />
       </div>
       <div className="row-span-2 col-span-4">
         <div className={styles.underLeft}>

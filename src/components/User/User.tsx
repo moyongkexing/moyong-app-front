@@ -11,6 +11,8 @@ import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 import ReactTooltip from "react-tooltip";
 import "./User.tsx.scss";
+import { useSelector } from "react-redux";
+import { selectShowUser } from "../../features/userSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,18 +30,14 @@ interface commitData {
   dt: string,
   ct: number,
 };
-interface Props {
-  showUsername: string;
-  showUserAvatar: string;
-}
-const User:React.FC<Props> = (props) => {
+const User:React.FC = () => {
   const classes = useStyles();
   const [ commits, setCommits ] = useState<Commit[]>([]);
-  
+  const showUser = useSelector(selectShowUser);
   useEffect(() => {
     const unSub = db
     .collection("training_posts")
-    .where("username", "==", props.showUsername)
+    .where("username", "==", showUser.name)
     .onSnapshot((querySnapshot) => {
       // const dummyData = [
       //   { dt: "2021-3-17", ct: 4 },
@@ -84,25 +82,17 @@ const User:React.FC<Props> = (props) => {
     return () => {
       unSub();
     };
-  }, [props.showUsername])
+  }, [showUser.name])
   return (
     <div className="flex flex-col">
       <div className="flex items-center">
         <Avatar
           data-testid="avatar"
           className={classes.large}
-          // src={profileUser.avatar
-          //   ? profileUser.avatar
-          //   : user.photoUrl
-          // }
-          src={props.showUserAvatar}
+          src={showUser.avatar}
         />
         <h3 data-testid="profileUsername" className="font-bold text-xl text-white ml-5">
-          {/* {profileUser.name
-            ? profileUser.name
-            : user.displayName
-          } */}
-          {props.showUsername}
+          {showUser.name}
         </h3>
         <button
           data-testid="signOut"
