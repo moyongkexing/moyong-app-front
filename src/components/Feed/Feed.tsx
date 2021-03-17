@@ -10,7 +10,7 @@ interface Post {
   avatar: string;
   image: string;
   trainingArray: [];
-  timestamp: any;
+  timestamp: Date;
   username: string;
   uid: string;
 }
