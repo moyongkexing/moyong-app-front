@@ -192,7 +192,8 @@ const TrainingInput: React.FC = () => {
                 avatar: user.photoUrl,
                 image: url,
                 training_array: trainingRecords,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                // timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                timestamp: firebase.firestore.Timestamp.now(),
                 username: user.displayName,
                 uid: user.uid
               });
@@ -204,7 +205,8 @@ const TrainingInput: React.FC = () => {
         avatar: user.photoUrl,
         image: "",
         training_array: trainingRecords,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        // timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        timestamp: firebase.firestore.Timestamp.now(),
         username: user.displayName,
         uid: user.uid
       });
