@@ -3,11 +3,6 @@
   box-shadow:  7px 7px 14px #38383b,
                -7px -7px 14px #505053;
 }
-.sideBar {
-  width: 50%;
-  height: 100%;
-  @include boxShadow();
-}
 .header {
   width: 100%;
   height: 7%;

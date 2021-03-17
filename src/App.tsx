@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectUser, login, logout } from "./features/userSlice";
+import { selectUser, login, logout, setShowUser } from "./features/userSlice";
 import { auth } from "./firebase";
 import Auth from "./components/Auth/Auth";
 import Feed from "./components/Feed/Feed";
@@ -19,6 +19,12 @@ const App: React.FC = () => {
             displayName: authUser.displayName,
           })
         );
+        dispatch(
+          setShowUser({
+            name: authUser.displayName,
+            avatar: authUser.photoURL,
+          })
+        )
       } else {
         dispatch(logout());
       }

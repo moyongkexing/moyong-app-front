@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import axios from 'axios'
+// import axios from 'axios'
 import { auth, provider, storage } from "../../firebase";
-import { updateUserProfile } from "../../features/userSlice";
+import { updateUserProfile, setShowUser } from "../../features/userSlice";
 
 import {
   Avatar,
@@ -132,41 +132,47 @@ const Auth:React.FC = () => {
         photoUrl: url,
       })
     )
-  };
-  const signUpEmailWithRails = async () => {
-    let url = "";
-    if (avatarImage) {
-      const S =
-        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-      const N = 16;
-      const randomChar = Array.from(crypto.getRandomValues(new Uint32Array(N)))
-        .map((n) => S[n % S.length])
-        .join("");
-      const fileName = randomChar + "_" + avatarImage.name;
-      await storage.ref(`avatars/${fileName}`).put(avatarImage);
-      url = await storage.ref("avatars").child(fileName).getDownloadURL();
-    }
-    axios.post("http://localhost:3000/signup",
-      {
-          user: {
-              name: username,
-              email: email,
-              password: password,
-          }
-      },
-      { withCredentials: true }
-    ).then(response => {
-        console.log("registration res", response)
-    }).catch(error => {
-        console.log("registration error", error)
-    })
     dispatch(
-      updateUserProfile({
-        displayName: username,
-        photoUrl: url,
+      setShowUser({
+        name: username,
+        avatar: url,
       })
     )
-  }
+  };
+  // const signUpEmailWithRails = async () => {
+  //   let url = "";
+  //   if (avatarImage) {
+  //     const S =
+  //       "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  //     const N = 16;
+  //     const randomChar = Array.from(crypto.getRandomValues(new Uint32Array(N)))
+  //       .map((n) => S[n % S.length])
+  //       .join("");
+  //     const fileName = randomChar + "_" + avatarImage.name;
+  //     await storage.ref(`avatars/${fileName}`).put(avatarImage);
+  //     url = await storage.ref("avatars").child(fileName).getDownloadURL();
+  //   }
+  //   axios.post("http://localhost:3000/signup",
+  //     {
+  //         user: {
+  //             name: username,
+  //             email: email,
+  //             password: password,
+  //         }
+  //     },
+  //     { withCredentials: true }
+  //   ).then(response => {
+  //       console.log("registration res", response)
+  //   }).catch(error => {
+  //       console.log("registration error", error)
+  //   })
+  //   dispatch(
+  //     updateUserProfile({
+  //       displayName: username,
+  //       photoUrl: url,
+  //     })
+  //   )
+  // }
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -251,8 +257,7 @@ const Auth:React.FC = () => {
               disabled={
                 isLogin
                 ? !email || password.length < 6
-                // : !username || !email || password.length < 6 || !avatarImage
-                : !username || !email || password.length < 6
+                : !username || !email || password.length < 6 || !avatarImage
               }
               fullWidth
               variant="contained"
@@ -270,7 +275,7 @@ const Auth:React.FC = () => {
                   }
                   : async () => {
                     try {
-                      await signUpEmailWithRails();
+                      await signUpEmailWithFirebase();
                     } catch (err) {
                       alert(err.message);
                     }
