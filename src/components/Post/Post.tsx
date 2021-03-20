@@ -60,7 +60,7 @@ const Post: React.FC<Props> = (props) => {
     };
   }, [props.postId]);
   return (
-    <div className="flex ml-16 pb-3">
+    <div className="flex ml-16 pb-3 hover:opacity-80">
       <div className="p-5">
         <Avatar
           data-testid="avatar"

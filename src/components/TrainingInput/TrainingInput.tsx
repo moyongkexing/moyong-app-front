@@ -12,9 +12,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import {
   Avatar,
   IconButton,
-  makeStyles,
-  createStyles,
-  Theme,
   List,
   ListItem,
   ListItemAvatar,

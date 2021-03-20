@@ -1,27 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { auth, db } from "../../firebase";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import {
-  Avatar,
-  createStyles,
-  makeStyles,
-  Theme,
-} from "@material-ui/core";
+import { Avatar } from "@material-ui/core";
 import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 import ReactTooltip from "react-tooltip";
 import "./User.tsx.scss";
 import { useSelector } from "react-redux";
 import { selectShowUser } from "../../features/userSlice";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    large: {
-      width: theme.spacing(9),
-      height: theme.spacing(9),
-    },
-  }),
-);
 interface Commit {
   date: string;
   count: number;
@@ -31,7 +17,6 @@ interface commitData {
   ct: number,
 };
 const User:React.FC = () => {
-  const classes = useStyles();
   const [ commits, setCommits ] = useState<Commit[]>([]);
   const showUser = useSelector(selectShowUser);
   useEffect(() => {
