@@ -75,7 +75,7 @@ const User:React.FC = () => {
       <div className="flex items-center w-full relative">
         { showUser.name !== loginUser.displayName &&
           <Avatar
-            className="w-8 h-8 absolute -left-12 cursor-pointer"
+            className="w-8 h-8 absolute -left-11 cursor-pointer"
             src={loginUser.photoUrl}
             onClick={() => 
               dispatch(
