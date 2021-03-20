@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { storage, db } from "../../firebase";
 import styles from "./TrainingInput.module.scss";
 import firebase from "firebase/app";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../features/userSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { selectUser, setShowUser } from "../../features/userSlice";
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import SendIcon from '@material-ui/icons/Send';
@@ -34,30 +34,9 @@ const weightList = [
   '45kg','50kg','54kg','59kg','64kg','68kg','73kg','77kg','82kg',
   '86kg','91kg',
 ];
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    small: {
-      width: theme.spacing(4),
-      height: theme.spacing(4),
-    },
-    large: {
-      width: theme.spacing(7),
-      height: theme.spacing(7),
-    },
-    button: {
-      margin: theme.spacing(1),
-    },
-    demo: {
-      backgroundColor: theme.palette.background.paper,
-    },
-    title: {
-      margin: theme.spacing(4, 0, 2),
-    },
-  }),
-);
 const TrainingInput: React.FC = () => {
-  const classes = useStyles();
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
   const [ image, setImage] = useState<File | null>(null);
   const [ trainingRecord, setTrainingRecord ] = useState<TrainingRecord>({
     trainingName: "",
@@ -135,8 +114,16 @@ const TrainingInput: React.FC = () => {
     <form onSubmit={postTrainingRecords} className="flex flex-col items-center">
       <Avatar
         data-testid="avatar"
-        className="w-14 h-14 mt-7 mb-3"
+        className="w-14 h-14 mt-7 mb-3 cursor-pointer"
         src={user.photoUrl}
+        onClick={() => 
+          dispatch(
+            setShowUser({
+              name: user.displayName,
+              avatar: user.photoUrl,
+            })
+          )
+        }
       />
       <div className="w-9/12">
         <input
@@ -192,7 +179,7 @@ const TrainingInput: React.FC = () => {
           {trainingRecords.map((record, index) => (
             <ListItem key={index}>
               <ListItemAvatar>
-                <Avatar className={classes.small}>
+                <Avatar className="w-6 h-6 mx-4">
                   <FitnessCenterIcon/>
                 </Avatar>
               </ListItemAvatar>

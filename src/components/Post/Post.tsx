@@ -122,7 +122,7 @@ const Post: React.FC<Props> = (props) => {
         <IconButton data-testid="addCommentButton" className="focus:outline-none">
           <AddCommentIcon
             className="cursor-pointer text-whiteSmoke"
-            onClick={() => props.openCommentInput(props.postId, props.avatar)}
+            onClick={() => props.openCommentInput(props.postId, props.username, props.avatar)}
           />
         </IconButton>
         {

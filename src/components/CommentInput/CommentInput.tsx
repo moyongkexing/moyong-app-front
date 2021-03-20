@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { db } from "../../firebase";
 import firebase from "firebase/app";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../features/userSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { selectUser, setShowUser } from "../../features/userSlice";
 import SendIcon from "@material-ui/icons/Send";
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import {
@@ -15,6 +15,7 @@ interface Props {
 }
 const CommentInput: React.FC<Props> = (props) => {
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
   const [comment, setComment] = useState("");
   const newComment = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,8 +32,16 @@ const CommentInput: React.FC<Props> = (props) => {
       <div className="flex mt-7 mb-3 items-center">
         <Avatar
           data-testid="avatarSender"
-          className="w-14 h-14 mx-4"
+          className="w-14 h-14 mx-4  cursor-pointer"
           src={user.photoUrl}
+          onClick={() => 
+            dispatch(
+              setShowUser({
+                name: user.displayName,
+                avatar: user.photoUrl,
+              })
+            )
+          }
         />
         <ChevronRightIcon
           data-testid="arrow"
@@ -40,8 +49,16 @@ const CommentInput: React.FC<Props> = (props) => {
         />
         <Avatar
           data-testid="avatarRecipient"
-          className="w-10 h-10 mx-4"
+          className="w-10 h-10 mx-4 cursor-pointer"
           src={props.commentPost.avatar}
+          onClick={() => 
+            dispatch(
+              setShowUser({
+                name: props.commentPost.username,
+                avatar: props.commentPost.avatar,
+              })
+            )
+          }
         />
       </div>
       <textarea
