@@ -6,8 +6,8 @@ import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 import ReactTooltip from "react-tooltip";
 import "./User.tsx.scss";
-import { useSelector } from "react-redux";
-import { selectShowUser } from "../../features/userSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { selectUser, setShowUser, selectShowUser } from "../../features/userSlice";
 interface Commit {
   date: string;
   count: number;
@@ -19,6 +19,8 @@ interface commitData {
 const User:React.FC = () => {
   const [ commits, setCommits ] = useState<Commit[]>([]);
   const showUser = useSelector(selectShowUser);
+  const loginUser = useSelector(selectUser);
+  const dispatch = useDispatch();
   useEffect(() => {
     const unSub = db
     .collection("training_posts")
@@ -70,7 +72,21 @@ const User:React.FC = () => {
   }, [showUser.name])
   return (
     <div className="flex flex-col items-center w-full">
-      <div className="flex items-center w-full">
+      <div className="flex items-center w-full relative">
+        { showUser.name !== loginUser.displayName &&
+          <Avatar
+            className="w-8 h-8 absolute -left-12 cursor-pointer"
+            src={loginUser.photoUrl}
+            onClick={() => 
+              dispatch(
+                setShowUser({
+                  name: loginUser.displayName,
+                  avatar: loginUser.photoUrl,
+                })
+              )
+            }
+          />
+        }
         <Avatar
           data-testid="avatar"
           className="w-20 h-20"

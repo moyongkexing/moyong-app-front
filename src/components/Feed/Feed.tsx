@@ -5,6 +5,7 @@ import TrainingInput from '../TrainingInput/TrainingInput';
 import CommentInput from '../CommentInput/CommentInput';
 import Post from '../Post/Post';
 import User from '../User/User';
+
 interface Post {
   id: string;
   avatar: string;
