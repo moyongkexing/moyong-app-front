@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import styles from "./Post.module.scss";
 import { useDispatch } from "react-redux";
 import { db } from "../../firebase";
 import { useSelector } from "react-redux";
@@ -60,7 +61,7 @@ const Post: React.FC<Props> = (props) => {
     };
   }, [props.postId]);
   return (
-    <div className="flex ml-16 pb-3 hover:opacity-80">
+    <div className={styles.hvrGlow}>
       <div className="p-5">
         <Avatar
           data-testid="avatar"
