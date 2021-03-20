@@ -198,7 +198,11 @@ const TrainingInput: React.FC = () => {
               </ListItemAvatar>
               <div className="flex flex-col text-whiteSmoke font-bold w-full">
                 <p>{record.trainingName}</p>
-                <p className="text-sm">{record.trainingWeight} × {record.trainingReps}回</p>
+                {
+                  record.trainingWeight
+                  ? <p className="text-sm">{record.trainingWeight} × {record.trainingReps}回</p>
+                  : <p>{record.trainingReps}回</p>
+                }
               </div>
               <ListItemSecondaryAction>
                 <IconButton className="focus:outline-none" edge="end" aria-label="delete" onClick={() => deleteTrainingRecord(index)}>
