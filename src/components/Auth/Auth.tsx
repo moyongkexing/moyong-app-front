@@ -20,6 +20,7 @@ import CameraIcon from "@material-ui/icons/Camera";
 import EmailIcon from "@material-ui/icons/Email";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import TwitterIcon from '@material-ui/icons/Twitter';
 
 function getModalStyle() {
   const top = 50;
@@ -151,8 +152,21 @@ const Auth:React.FC = () => {
   // }
   return (
     <div className="grid grid-cols-12 h-screen">
-      <div className="sm:col-span-8 md:col-span-7">
-        {/* <img src={`${process.env.PUBLIC_URL}/preview.png`} alt=""/> */}
+      <div className="flex justify-center items-center sm:col-span-8 md:col-span-7">
+        <div className="flex flex-col justify-center items-center text-gray-200">
+          <h1 className="text-3xl font-bold mb-4">Workout Journal</h1>
+          <div className="flex justify-center items-center mt-4 font-bold">
+            <p>開発者：</p>
+            <div className="flex flex-col ml-4">
+              <img className="w-20 h-20 rounded-full" src={`${process.env.PUBLIC_URL}/moyong.jpg`}/>
+              <p>もーよん<a className="text-blue-400" target="_blank" rel="noopener noreferrer" href="https://twitter.com/watar_of_echigo">
+                <TwitterIcon/>
+              </a></p>
+            </div>
+            <button>
+            </button>
+          </div>
+        </div>
       </div>
       <div className="sm:col-span-4 md:col-span-5 my-auto">
         <div className={styles.authForm}>
