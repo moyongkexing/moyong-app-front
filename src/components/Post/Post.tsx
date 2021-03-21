@@ -127,7 +127,7 @@ const Post: React.FC<Props> = (props) => {
           />
         </IconButton>
         {
-          user.uid === props.postUid &&
+          user.uid === props.postUid && user.uid !== "fiNlO1btdyZVIxI0JrZkXRLlutn1" &&
           <IconButton  className="focus:outline-none">
             <DeleteIcon
               className="cursor-pointer text-whiteSmoke"

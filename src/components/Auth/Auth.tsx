@@ -7,11 +7,8 @@ import styles from "./Auth.module.scss";
 import {
   Avatar,
   Button,
-  CssBaseline,
   TextField,
-  Paper,
   Grid,
-  Typography,
   makeStyles,
   Modal,
   IconButton,
@@ -35,29 +32,9 @@ function getModalStyle() {
   }
 }
 const useStyles = makeStyles((theme) => ({
-  root: {
-    height: '100vh',
-  },
-  image: {
-    backgroundImage: 'url(https://images.pexels.com/photos/5320032/pexels-photo-5320032.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)',
-    backgroundRepeat: 'no-repeat',
-    backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
   },
   modal: {
     outline: "none",
@@ -174,7 +151,9 @@ const Auth:React.FC = () => {
   // }
   return (
     <div className="grid grid-cols-12 h-screen">
-      <div className="sm:col-span-8 md:col-span-7 "></div>
+      <div className="sm:col-span-8 md:col-span-7">
+        {/* <img src={`${process.env.PUBLIC_URL}/preview.png`} alt=""/> */}
+      </div>
       <div className="sm:col-span-4 md:col-span-5 my-auto">
         <div className={styles.authForm}>
           <Avatar className={classes.avatar}>
@@ -254,7 +233,6 @@ const Auth:React.FC = () => {
               fullWidth
               variant="contained"
               color="primary"
-              // className={classes.submit}
               className="text-gray-300 my-4 focus:outline-none"
               startIcon={<EmailIcon />}
               onClick={
