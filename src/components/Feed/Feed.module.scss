@@ -1,7 +1,7 @@
 @mixin boxShadow {
   background: #444447;
-  box-shadow:  7px 7px 14px #38383b,
-               -7px -7px 14px #505053;
+  box-shadow:  6px 6px 10px #3b3b3e,
+  -6px -6px 10px #4d4d50;
 }
 .header {
   width: 100%;

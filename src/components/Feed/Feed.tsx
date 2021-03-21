@@ -5,6 +5,7 @@ import TrainingInput from '../TrainingInput/TrainingInput';
 import CommentInput from '../CommentInput/CommentInput';
 import Post from '../Post/Post';
 import User from '../User/User';
+
 interface Post {
   id: string;
   avatar: string;
@@ -16,16 +17,18 @@ interface Post {
 }
 interface CommentPost {
   id: string;
+  username: string;
   avatar: string;
 }
 const Feed: React.FC = () => {
   const [ posts, setPosts] = useState<Post[]>([]);
   const [ displayCommentInput, setDisplayCommentInput ] = useState<boolean>(false);
   const [ commentPost, setCommentPost ] = useState<CommentPost>();
-  const openCommentInput = (id:string, avatar:string) => {
+  const openCommentInput = (id:string, username:string, avatar:string) => {
     setDisplayCommentInput(true);
     setCommentPost({
       id: id,
+      username: username,
       avatar: avatar,
     })
   }

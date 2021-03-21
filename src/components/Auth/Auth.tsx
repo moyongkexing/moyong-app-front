@@ -3,15 +3,12 @@ import { useDispatch } from "react-redux";
 // import axios from 'axios'
 import { auth, provider, storage } from "../../firebase";
 import { updateUserProfile, setShowUser } from "../../features/userSlice";
-
+import styles from "./Auth.module.scss";
 import {
   Avatar,
   Button,
-  CssBaseline,
   TextField,
-  Paper,
   Grid,
-  Typography,
   makeStyles,
   Modal,
   IconButton,
@@ -23,6 +20,7 @@ import CameraIcon from "@material-ui/icons/Camera";
 import EmailIcon from "@material-ui/icons/Email";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import TwitterIcon from '@material-ui/icons/Twitter';
 
 function getModalStyle() {
   const top = 50;
@@ -35,33 +33,9 @@ function getModalStyle() {
   }
 }
 const useStyles = makeStyles((theme) => ({
-  root: {
-    height: '100vh',
-  },
-  image: {
-    backgroundImage: 'url(https://images.pexels.com/photos/5320032/pexels-photo-5320032.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)',
-    backgroundRepeat: 'no-repeat',
-    backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%',
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
   },
   modal: {
     outline: "none",
@@ -101,6 +75,9 @@ const Auth:React.FC = () => {
       setAvatarImage(e.target.files![0]);
       e.target.value = "";
     }
+  }
+  const testLogin = async () => {
+    await auth.signInWithEmailAndPassword("otameshi@gmail.com", "password");
   }
   const signInGoogle = async () => {
     await auth.signInWithPopup(provider).catch((err) => alert(err.message));
@@ -174,27 +151,39 @@ const Auth:React.FC = () => {
   //   )
   // }
   return (
-    <Grid container component="main" className={classes.root}>
-      <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
+    <div className="grid grid-cols-12 h-screen">
+      <div className="flex justify-center items-center sm:col-span-8 md:col-span-7">
+        <div className="flex flex-col justify-center items-center text-gray-200">
+          <h1 className="text-3xl font-bold mb-4">Workout Journal</h1>
+          <div className="flex justify-center items-center mt-4 font-bold">
+            <p>開発者：</p>
+            <div className="flex flex-col ml-4">
+              <img className="w-20 h-20 rounded-full" src={`${process.env.PUBLIC_URL}/moyong.jpg`}/>
+              <p>もーよん<a className="text-blue-400" target="_blank" rel="noopener noreferrer" href="https://twitter.com/watar_of_echigo">
+                <TwitterIcon/>
+              </a></p>
+            </div>
+            <button>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="sm:col-span-4 md:col-span-5 my-auto">
+        <div className={styles.authForm}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <h3 className="text-gray-300 font-bold text-xl my-3">
             {isLogin ? "ログイン" : "会員登録"}
-          </Typography>
-          <form className={classes.form} noValidate>
+          </h3>
+          <form className="flex flex-col items-center w-9/12" noValidate>
             {!isLogin && (
               <>
-                <TextField
-                  variant="outlined"
-                  margin="normal"
+                <input
+                  placeholder="名前"
+                  className="w-full mt-4 bg-inputBg text-whiteSmoke rounded-3xl outline-none border-none px-4 py-3 text-lg"
                   required
-                  fullWidth
                   id="username"
-                  label="username"
                   name="username"
                   autoComplete="username"
                   autoFocus
@@ -204,7 +193,7 @@ const Auth:React.FC = () => {
                   }}
                 />
                 <Box textAlign="center">
-                  <IconButton>
+                  <IconButton className="focus:outline-none">
                     <label>
                       <AccountCircleIcon
                         fontSize="large"
@@ -224,13 +213,11 @@ const Auth:React.FC = () => {
                 </Box>
               </>
             )}
-            <TextField
-              variant="outlined"
-              margin="normal"
+            <input
+              placeholder="メールアドレス"
+              className="w-full mt-4 bg-inputBg text-whiteSmoke rounded-3xl outline-none border-none px-4 py-3 text-lg"
               required
-              fullWidth
               id="email"
-              label="Email Address"
               name="email"
               autoComplete="email"
               autoFocus
@@ -239,13 +226,11 @@ const Auth:React.FC = () => {
                 setEmail(e.target.value)
               }}
             />
-            <TextField
-              variant="outlined"
-              margin="normal"
+            <input
+              placeholder="パスワード"
+              className="w-full mt-4 bg-inputBg text-whiteSmoke rounded-3xl outline-none border-none px-4 py-3 text-lg"
               required
-              fullWidth
               name="password"
-              label="Password"
               type="password"
               id="password"
               autoComplete="current-password"
@@ -262,7 +247,7 @@ const Auth:React.FC = () => {
               fullWidth
               variant="contained"
               color="primary"
-              className={classes.submit}
+              className="text-gray-300 my-4 focus:outline-none"
               startIcon={<EmailIcon />}
               onClick={
                 isLogin
@@ -287,14 +272,14 @@ const Auth:React.FC = () => {
             <Grid container>
               <Grid item xs>
                 <span
-                  className="cursor-pointer"
+                  className="cursor-pointer text-gray-300"
                   onClick={() => setOpenModal(true)}
                 >
                   パスワードをお忘れですか？
                 </span>
                 </Grid>
               <Grid item>
-                <span className="cursor-pointer text-toggleLoginBtn" onClick={()=>setIsLogin(!isLogin)}>
+                <span className="cursor-pointer text-blue-500" onClick={()=>setIsLogin(!isLogin)}>
                   {isLogin ? "アカウントを新規作成する" : "ログイン"}
                 </span>
               </Grid>
@@ -303,11 +288,20 @@ const Auth:React.FC = () => {
               fullWidth
               variant="contained"
               color="primary"
-              className={classes.submit}
+              className="mt-4 focus:outline-none"
               onClick={signInGoogle}
               startIcon={<CameraIcon/>}
             >
               SignIn with Google
+            </Button>
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              className="mt-4 focus:outline-none"
+              onClick={testLogin}
+            >
+              おためしユーザーとしてログイン
             </Button>
           </form>
           <Modal open={openModal} onClose={() => setOpenModal(false)}>
@@ -332,8 +326,8 @@ const Auth:React.FC = () => {
             </div>
           </Modal>
         </div>
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   );
 }
 export default Auth;

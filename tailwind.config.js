@@ -3,6 +3,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      inset: {
+        // '1': '4px',
+      },
       colors: {
         'inputBg': '#343437',
         'enableBtn': '#00bfff',

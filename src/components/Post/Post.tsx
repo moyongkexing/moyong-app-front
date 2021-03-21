@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import styles from "./Post.module.scss";
 import { useDispatch } from "react-redux";
 import { db } from "../../firebase";
 import { useSelector } from "react-redux";
@@ -60,7 +61,7 @@ const Post: React.FC<Props> = (props) => {
     };
   }, [props.postId]);
   return (
-    <div className="flex ml-16 pb-3">
+    <div className={styles.hvrGlow}>
       <div className="p-5">
         <Avatar
           data-testid="avatar"
@@ -102,14 +103,14 @@ const Post: React.FC<Props> = (props) => {
             {props.trainingArray.map((record: any, index: number) => (
               <table className="text-whiteSmoke font-semibold" key={index}>
                 <td data-testid="trainingName" className="mr-1">{record.trainingName}</td>
-                <td data-testid="trainingWeight" className="mr-1">
-                  {
-                    record.trainingWeight === "none"
-                    ? ""
-                    : record.trainingWeight
-                  }
-                  </td>
-                <td data-testid="trainingReps" className="mr-1">{record.trainingReps}回</td>
+                {
+                  record.trainingWeight &&
+                  <td data-testid="trainingWeight" className="mr-1">{record.trainingWeight}</td>
+                }
+                {
+                  record.trainingReps &&
+                  <td data-testid="trainingReps" className="mr-1">{record.trainingReps}回</td>
+                }
               </table>
             ))}
           </div>
@@ -122,11 +123,11 @@ const Post: React.FC<Props> = (props) => {
         <IconButton data-testid="addCommentButton" className="focus:outline-none">
           <AddCommentIcon
             className="cursor-pointer text-whiteSmoke"
-            onClick={() => props.openCommentInput(props.postId, props.avatar)}
+            onClick={() => props.openCommentInput(props.postId, props.username, props.avatar)}
           />
         </IconButton>
         {
-          user.uid === props.postUid &&
+          user.uid === props.postUid && user.uid !== "fiNlO1btdyZVIxI0JrZkXRLlutn1" &&
           <IconButton  className="focus:outline-none">
             <DeleteIcon
               className="cursor-pointer text-whiteSmoke"
