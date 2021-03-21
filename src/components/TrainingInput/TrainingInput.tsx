@@ -24,7 +24,7 @@ interface TrainingRecord {
   trainingReps: string;
 }
 const weightList = [
-  'none','10lbs','20lbs','30lbs','40lbs','50lbs','60lbs',
+  '10lbs','20lbs','30lbs','40lbs','50lbs','60lbs',
   '70lbs','80lbs','90lbs','100lbs','110lbs','120lbs','130lbs',
   '140lbs','150lbs','160lbs','170lbs','180lbs','190lbs','200lbs',
   '4.5kg','9kg','14kg','18kg','23kg','27kg','32kg','36kg','41kg',
