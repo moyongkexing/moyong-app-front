@@ -126,7 +126,7 @@ const TrainingInput: React.FC = () => {
         <input
           data-testid="trainingNameInput"
           className="w-full mt-4 bg-inputBg text-whiteSmoke px-4 py-2 rounded-3xl outline-none border-none text-lg"
-          placeholder="トレーニング名"
+          placeholder="トレーニング名*"
           type="text"
           value={trainingRecord.trainingName}
           onChange={(e) => setTrainingRecord({...trainingRecord, trainingName: e.target.value})}
@@ -174,20 +174,26 @@ const TrainingInput: React.FC = () => {
       <List data-testid="trainingRecordsList" dense={true} className="w-11/12 h-2/5 m-0">
         <div className={styles.scroll}>
           {trainingRecords.map((record, index) => (
-            <ListItem key={index}>
+            <ListItem key={index} className="mt-1">
               <ListItemAvatar>
                 <Avatar className="w-6 h-6 mx-4">
                   <FitnessCenterIcon/>
                 </Avatar>
               </ListItemAvatar>
-              <div className="flex flex-col text-whiteSmoke font-bold w-full">
-                <p>{record.trainingName}</p>
-                {
-                  record.trainingWeight
-                  ? <p className="text-sm">{record.trainingWeight} × {record.trainingReps}回</p>
-                  : <p>{record.trainingReps}回</p>
-                }
-              </div>
+              {
+                !record.trainingReps && !record.trainingWeight
+                ? <div className="flex flex-col w-full">
+                    <p className="text-whiteSmoke font-bold">{record.trainingName}</p>
+                  </div>
+                : <div className="flex flex-col text-whiteSmoke font-bold w-full">
+                    <p>{record.trainingName}</p>
+                    {
+                      record.trainingWeight
+                      ? <p className="text-sm">{record.trainingWeight} × {record.trainingReps}回</p>
+                      : <p>{record.trainingReps}回</p>
+                    }
+                  </div>
+              }
               <ListItemSecondaryAction>
                 <IconButton className="focus:outline-none" edge="end" aria-label="delete" onClick={() => deleteTrainingRecord(index)}>
                   <DeleteIcon className="cursor-pointer text-whiteSmoke"/>

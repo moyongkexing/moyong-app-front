@@ -8,6 +8,25 @@ import ReactTooltip from "react-tooltip";
 import "./User.tsx.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser, setShowUser, selectShowUser } from "../../features/userSlice";
+
+// const dummyData = [
+//   { dt: "2021-3-17", ct: 4 },
+//   { dt: "2021-3-16", ct: 2 },
+//   { dt: "2021-2-15", ct: 1 },
+//   { dt: "2021-3-14", ct: 3 },
+//   { dt: "2021-1-13", ct: 2 },
+//   { dt: "2021-3-17", ct: 4 },
+//   { dt: "2021-3-11", ct: 2 },
+//   { dt: "2021-3-10", ct: 1 },
+//   { dt: "2021-1-10", ct: 6 },
+//   { dt: "2021-2-10", ct: 3 },
+//   { dt: "2021-3-10", ct: 4 },
+//   { dt: "2021-1-10", ct: 2 },
+//   { dt: "2021-2-15", ct: 3 },
+//   { dt: "2021-2-16", ct: 3 },
+//   { dt: "2021-2-18", ct: 2 },
+//   { dt: "2021-2-10", ct: 4 },
+// ]
 interface Commit {
   date: string;
   count: number;
@@ -26,24 +45,6 @@ const User:React.FC = () => {
     .collection("training_posts")
     .where("username", "==", showUser.name)
     .onSnapshot((querySnapshot) => {
-      // const dummyData = [
-      //   { dt: "2021-3-17", ct: 4 },
-      //   { dt: "2021-3-16", ct: 2 },
-      //   { dt: "2021-2-15", ct: 1 },
-      //   { dt: "2021-3-14", ct: 3 },
-      //   { dt: "2021-1-13", ct: 2 },
-      //   { dt: "2021-3-17", ct: 4 },
-      //   { dt: "2021-3-11", ct: 2 },
-      //   { dt: "2021-3-10", ct: 1 },
-      //   { dt: "2021-1-10", ct: 6 },
-      //   { dt: "2021-2-10", ct: 3 },
-      //   { dt: "2021-3-10", ct: 4 },
-      //   { dt: "2021-1-10", ct: 2 },
-      //   { dt: "2021-2-15", ct: 3 },
-      //   { dt: "2021-2-16", ct: 3 },
-      //   { dt: "2021-2-18", ct: 2 },
-      //   { dt: "2021-2-10", ct: 4 },
-      // ]
       let commitData: commitData[] = [];
       querySnapshot.docs.map((doc) => {
         commitData.push({
