@@ -137,6 +137,7 @@ const TrainingInput: React.FC = () => {
           autoComplete="on"
           list="weightList"
           placeholder="重量"
+          value={trainingRecord.trainingWeight}
           className="w-full mt-4 bg-inputBg text-whiteSmoke px-4 py-2 rounded-3xl outline-none border-none text-lg"
           onChange={(e) => setTrainingRecord({...trainingRecord, trainingWeight: e.target.value})}
         />

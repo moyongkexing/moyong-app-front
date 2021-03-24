@@ -158,7 +158,7 @@ const Auth:React.FC = () => {
           <div className="flex justify-center items-center mt-4 font-bold">
             <p>開発者：</p>
             <div className="flex flex-col ml-4">
-              <img className="w-20 h-20 rounded-full" src={`${process.env.PUBLIC_URL}/moyong.jpg`}/>
+              <img className="w-20 h-20 rounded-full" src={`${process.env.PUBLIC_URL}/moyong.jpg`} alt="moyong" />
               <p>もーよん<a className="text-blue-400" target="_blank" rel="noopener noreferrer" href="https://twitter.com/watar_of_echigo">
                 <TwitterIcon/>
               </a></p>

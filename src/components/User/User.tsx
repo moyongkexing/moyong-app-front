@@ -46,12 +46,16 @@ const User:React.FC = () => {
     .where("username", "==", showUser.name)
     .onSnapshot((querySnapshot) => {
       let commitData: commitData[] = [];
-      querySnapshot.docs.map((doc) => {
-        commitData.push({
-          dt: doc.data().timestamp.toDate().toLocaleDateString().replace(/\u002f/g, '-'),
-          ct: doc.data().training_array.length,
-        })
-      });
+      // querySnapshot.docs.map((doc) => {
+      //   commitData.push({
+      //     dt: doc.data().timestamp.toDate().toLocaleDateString().replace(/\u002f/g, '-'),
+      //     ct: doc.data().training_array.length,
+      //   })
+      // });
+      querySnapshot.docs.map((doc) => commitData.push({
+        dt: doc.data().timestamp.toDate().toLocaleDateString().replace(/\u002f/g, '-'),
+        ct: doc.data().training_array.length,
+      }));
       const result = Array.from(new Set(commitData.map(data => data.dt))).map((d) => {
         return {
           dt: d,
