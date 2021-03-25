@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import type { VFC } from "react";
 import styles from './Feed.module.scss';
 import { db } from "../../firebase";
 import TrainingInput from '../TrainingInput/TrainingInput';
@@ -20,7 +21,7 @@ interface CommentPost {
   username: string;
   avatar: string;
 }
-const Feed: React.FC = () => {
+const Feed: VFC = () => {
   const [ posts, setPosts] = useState<POST[]>([]);
   const [ displayCommentInput, setDisplayCommentInput ] = useState<boolean>(false);
   const [ commentPost, setCommentPost ] = useState<CommentPost>();

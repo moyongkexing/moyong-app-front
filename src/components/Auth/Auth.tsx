@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import type { VFC } from "react";
 import { useDispatch } from "react-redux";
 // import axios from 'axios'
 import { auth, provider, storage } from "../../firebase";
@@ -47,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(10)
   }
 }));
-const Auth:React.FC = () => {
+const Auth: VFC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [email, setEmail] = useState<string>("");

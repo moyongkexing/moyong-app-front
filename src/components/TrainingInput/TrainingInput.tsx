@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import type { VFC } from "react";
 import { storage, db } from "../../firebase";
 import styles from "./TrainingInput.module.scss";
 import firebase from "firebase/app";
@@ -31,7 +32,7 @@ const weightList = [
   '45kg','50kg','54kg','59kg','64kg','68kg','73kg','77kg','82kg',
   '86kg','91kg',
 ];
-const TrainingInput: React.FC = () => {
+const TrainingInput: VFC = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const [ image, setImage] = useState<File | null>(null);

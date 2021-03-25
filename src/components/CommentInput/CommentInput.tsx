@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import type { VFC } from "react";
 import { db } from "../../firebase";
 import firebase from "firebase/app";
 import { useSelector, useDispatch } from "react-redux";
@@ -13,7 +14,7 @@ interface Props {
   commentPost: any;
   setDisplayCommentInput: any;
 }
-const CommentInput: React.FC<Props> = (props) => {
+const CommentInput: VFC<Props> = (props) => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const [comment, setComment] = useState("");

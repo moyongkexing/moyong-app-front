@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import type { VFC } from "react";
 import styles from "./Post.module.scss";
 import { useDispatch } from "react-redux";
 import { db } from "../../firebase";
@@ -25,7 +26,7 @@ interface Comment {
   username: string;
 }
 // -----------Postコンポーネント-----------
-const Post: React.FC<Props> = (props) => {
+const Post: VFC<Props> = (props) => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const [comments, setComments] = useState<Comment[]>([]);

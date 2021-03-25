@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import type { VFC } from "react";
 import { auth, db } from "../../firebase";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Avatar } from "@material-ui/core";
@@ -35,7 +36,7 @@ interface commitData {
   dt: string,
   ct: number,
 };
-const User:React.FC = () => {
+const User: VFC = () => {
   const [ commits, setCommits ] = useState<Commit[]>([]);
   const showUser = useSelector(selectShowUser);
   const loginUser = useSelector(selectUser);
