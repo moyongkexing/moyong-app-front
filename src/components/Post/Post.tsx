@@ -53,7 +53,7 @@ const Post: VFC<Props> = (props) => {
             avatar: doc.data().avatar,
             text: doc.data().text,
             username: doc.data().username,
-            timestamp: doc.data().timestamp,
+            timestamp: new Date(doc.data().timestamp.toDate()).toLocaleString(),
           }))
         );
       });
@@ -95,7 +95,7 @@ const Post: VFC<Props> = (props) => {
                 }
               >{props.username}</span>
               <span data-testid="date" className="text-gray-500 text-sm">
-                {new Date(props.timestamp?.toDate()).toLocaleString()}
+                {props.timestamp}
               </span>
             </h3>
           </div>
@@ -164,7 +164,7 @@ const Post: VFC<Props> = (props) => {
                 @{com.username}
               </span>
               <span className="text-sm text-whiteSmoke mr-3">{com.text}</span>
-              <span className="text-gray-500 text-sm">{new Date(com.timestamp?.toDate()).toLocaleString()}</span>
+              <span className="text-gray-500 text-sm">{com.timestamp}</span>
             </div>
           ))
         }

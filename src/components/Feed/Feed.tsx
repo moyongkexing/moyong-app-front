@@ -12,7 +12,7 @@ interface POST {
   avatar: string;
   image: string;
   trainingArray: [];
-  timestamp: Date;
+  timestamp: string;
   username: string;
   uid: string;
 }
@@ -44,7 +44,7 @@ const Feed: VFC = () => {
         avatar: doc.data().avatar,
         image: doc.data().image,
         trainingArray: doc.data().training_array,
-        timestamp: doc.data().timestamp,
+        timestamp: new Date(doc.data().timestamp.toDate()).toLocaleString(),
         username: doc.data().username,
         uid: doc.data().uid
       }))
