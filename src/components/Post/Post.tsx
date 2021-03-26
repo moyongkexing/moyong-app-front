@@ -22,7 +22,7 @@ interface Comment {
   id: string;
   avatar: string;
   text: string;
-  timestamp: any;
+  timestamp: string;
   username: string;
 }
 // -----------Postコンポーネント-----------
