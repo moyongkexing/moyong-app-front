@@ -68,7 +68,6 @@ const Post: VFC<Props> = (props) => {
           data-testid="avatar"
           src={props.avatar}
           className="cursor-pointer"
-          // onClick={() => setProfile(props.username, props.avatar)}
           onClick={() => 
             dispatch(
               setShowUser({
