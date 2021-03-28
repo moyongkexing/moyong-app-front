@@ -18,9 +18,8 @@ import {
   ListItemSecondaryAction,
   Tooltip,
 } from "@material-ui/core";
-import { url } from "node:inspector";
-interface TrainingRecord {
 
+interface TrainingRecord {
   trainingName: string;
   trainingWeight: string;
   trainingReps: string;
@@ -183,7 +182,7 @@ const TrainingInput: React.FC = () => {
           />
         </IconButton>
       </div>
-      <List data-testid="trainingRecordsList" dense={true} className="w-11/12 h-2/5 m-0">
+      <List data-testid="trainingRecordsList" dense={true} className="w-11/12 h-1/3 m-0">
         <div className={styles.scroll}>
           {trainingRecords.map((record, index) => (
             <ListItem key={index} className="mt-1">
@@ -216,28 +215,30 @@ const TrainingInput: React.FC = () => {
         </div>
       </List>
       <div className="w-9/12 flex justify-between items-center mb-5">
-        <IconButton data-testid="uploadButton" className="focus:outline-none">
-          <label>
-            <AddPhotoAlternateIcon
-              fontSize="large"
-              className={
-                image
-                ? "text-whiteSmoke cursor-pointer"
-                : "text-disableBtn cursor-pointer"
-              }
-            />
-            <input
-              className="hidden"
-              type="file"
-              onChange={onChangeImageHandler}
-            />
-          </label>
-        </IconButton>
-        {previewImage &&
-          <Tooltip title="削除" >
-            <img src={previewImage} alt="" onClick={() => deletePreview()} className="cursor-pointer max-h-10 object-contain"/>
-          </Tooltip>
-        }
+        <div className="flex items-center">
+          <IconButton data-testid="uploadButton" className="focus:outline-none">
+            <label>
+              <AddPhotoAlternateIcon
+                fontSize="large"
+                className={
+                  image
+                  ? "text-whiteSmoke cursor-pointer"
+                  : "text-disableBtn cursor-pointer"
+                }
+              />
+              <input
+                className="hidden"
+                type="file"
+                onChange={onChangeImageHandler}
+              />
+            </label>
+          </IconButton>
+          {previewImage &&
+            <Tooltip title="削除" >
+              <img src={previewImage} alt="" onClick={() => deletePreview()} className="cursor-pointer max-h-10 object-contain"/>
+            </Tooltip>
+          }
+        </div>
         <button
           data-testid="submitButton"
           type="submit"
