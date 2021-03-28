@@ -16,7 +16,9 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemSecondaryAction,
+  Tooltip,
 } from "@material-ui/core";
+import { url } from "node:inspector";
 interface TrainingRecord {
 
   trainingName: string;
@@ -35,6 +37,7 @@ const TrainingInput: React.FC = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const [ image, setImage] = useState<File | null>(null);
+  const [ previewImage, setPreviewImage ] = useState<any>(null);
   const [ trainingRecord, setTrainingRecord ] = useState<TrainingRecord>({
     trainingName: "",
     trainingWeight: "",
@@ -55,10 +58,17 @@ const TrainingInput: React.FC = () => {
     setTrainingRecords(newTrainingRecords);
   }
   const onChangeImageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files![0]) {
-      setImage(e.target.files![0]);
+    const file = e.target.files![0];
+    const previewFile = URL.createObjectURL(file)
+    if (file) {
+      setImage(file);
       e.target.value = "";
     }
+    setPreviewImage(previewFile);
+  };
+  const deletePreview = () => {
+    setImage(null);
+    setPreviewImage(null);
   };
   const postTrainingRecords = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -105,6 +115,7 @@ const TrainingInput: React.FC = () => {
       });
     }
     setImage(null);
+    setPreviewImage(null);
     setTrainingRecords([]);
   };
   return (
@@ -222,6 +233,11 @@ const TrainingInput: React.FC = () => {
             />
           </label>
         </IconButton>
+        {previewImage &&
+          <Tooltip title="削除" >
+            <img src={previewImage} alt="" onClick={() => deletePreview()} className="cursor-pointer max-h-10 object-contain"/>
+          </Tooltip>
+        }
         <button
           data-testid="submitButton"
           type="submit"
