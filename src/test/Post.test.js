@@ -1,5 +1,6 @@
 import React from "react";
 import { render, screen, cleanup } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { Provider } from "react-redux";
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from '../features/userSlice';
@@ -30,58 +31,58 @@ const dummyPosts = [
     timestamp: "2021/1/1 00:00:01",
     username: "user1",
     postUid: "postUser1",
-  },
-  {
-    postId: "post2",
-    avatar: "avatar2",
-    image: "image2",
-    trainingArray: [
-      {
-        trainingName: "trainingName1",
-        trainingWeight: "1kg",
-        trainingReps: "1",
-      },
-      {
-        trainingName: "trainingName2",
-        trainingWeight: "2kg",
-        trainingReps: "2",
-      },
-      {
-        trainingName: "trainingName3",
-        trainingWeight: "3kg",
-        trainingReps: "3",
-      },
-    ],
-    timestamp: "2021/1/2 00:00:01",
-    username: "user2",
-    postUid: "postUser2",
-  },
-  {
-    postId: "post3",
-    avatar: "avatar3",
-    image: "image3",
-    trainingArray: [
-      {
-        trainingName: "trainingName1",
-        trainingWeight: "1kg",
-        trainingReps: "1",
-      },
-      {
-        trainingName: "trainingName2",
-        trainingWeight: "2kg",
-        trainingReps: "2",
-      },
-      {
-        trainingName: "trainingName3",
-        trainingWeight: "3kg",
-        trainingReps: "3",
-      },
-    ],
-    timestamp: "2021/1/3 00:00:01",
-    username: "user3",
-    postUid: "postUser3",
-  },
-]
+  }
+  // {
+  //   postId: "post2",
+  //   avatar: "avatar2",
+  //   image: "image2",
+  //   trainingArray: [
+  //     {
+  //       trainingName: "trainingName1",
+  //       trainingWeight: "1kg",
+  //       trainingReps: "1",
+  //     },
+  //     {
+  //       trainingName: "trainingName2",
+  //       trainingWeight: "2kg",
+  //       trainingReps: "2",
+  //     },
+  //     {
+  //       trainingName: "trainingName3",
+  //       trainingWeight: "3kg",
+  //       trainingReps: "3",
+  //     },
+  //   ],
+  //   timestamp: "2021/1/2 00:00:01",
+  //   username: "user2",
+  //   postUid: "postUser2",
+  // },
+  // {
+  //   postId: "post3",
+  //   avatar: "avatar3",
+  //   image: "image3",
+  //   trainingArray: [
+  //     {
+  //       trainingName: "trainingName1",
+  //       trainingWeight: "1kg",
+  //       trainingReps: "1",
+  //     },
+  //     {
+  //       trainingName: "trainingName2",
+  //       trainingWeight: "2kg",
+  //       trainingReps: "2",
+  //     },
+  //     {
+  //       trainingName: "trainingName3",
+  //       trainingWeight: "3kg",
+  //       trainingReps: "3",
+  //     },
+  //   ],
+  //   timestamp: "2021/1/3 00:00:01",
+  //   username: "user3",
+  //   postUid: "postUser3",
+  // },
+];
 afterEach(() => {
   cleanup();
 })
@@ -94,7 +95,7 @@ describe("レンダリング", () => {
       },
     });
   });
-  it("要素が正しくレンダリングされること", () => {
+  it("Feedコンポーネントから渡された筋トレ記録が一つ一つレンダリングされること", () => {
     render(
       <Provider store={store}>
         {
@@ -121,4 +122,28 @@ describe("レンダリング", () => {
     expect(screen.getAllByTestId("trainingReps")).toBeTruthy();
     expect(screen.getAllByTestId("addCommentButton")).toBeTruthy();
   });
+  // it("コメントボタンを押したらコメント入力欄を開くfunctionが呼ばれること", () => {
+  //   const openCommentInput = jest.fn();
+  //   render(
+  //     <Provider store={store}>
+  //       {
+  //         dummyPosts.map((post) => (
+  //           <Post
+  //             key={post.id}
+  //             postId={post.id}
+  //             avatar={post.avatar}
+  //             image={post.image}
+  //             trainingArray={post.trainingArray}
+  //             timestamp={post.timestamp}
+  //             username={post.username}
+  //             postUid={post.uid}
+  //             openCommentInput={openCommentInput}
+  //           />
+  //         ))
+  //       }
+  //     </Provider>
+  //   );
+  //   userEvent.click(screen.getByTestId("addCommentButton"));
+  //   expect(openCommentInput).toHaveBeenCalledTimes(1);
+  // })
 })
