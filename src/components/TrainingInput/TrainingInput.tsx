@@ -16,9 +16,10 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemSecondaryAction,
+  Tooltip,
 } from "@material-ui/core";
-interface TrainingRecord {
 
+interface TrainingRecord {
   trainingName: string;
   trainingWeight: string;
   trainingReps: string;
@@ -35,6 +36,7 @@ const TrainingInput: React.FC = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const [ image, setImage] = useState<File | null>(null);
+  const [ previewImage, setPreviewImage ] = useState<any>(null);
   const [ trainingRecord, setTrainingRecord ] = useState<TrainingRecord>({
     trainingName: "",
     trainingWeight: "",
@@ -55,10 +57,17 @@ const TrainingInput: React.FC = () => {
     setTrainingRecords(newTrainingRecords);
   }
   const onChangeImageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files![0]) {
-      setImage(e.target.files![0]);
+    const file = e.target.files![0];
+    const previewFile = URL.createObjectURL(file)
+    if (file) {
+      setImage(file);
       e.target.value = "";
     }
+    setPreviewImage(previewFile);
+  };
+  const deletePreview = () => {
+    setImage(null);
+    setPreviewImage(null);
   };
   const postTrainingRecords = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -105,6 +114,7 @@ const TrainingInput: React.FC = () => {
       });
     }
     setImage(null);
+    setPreviewImage(null);
     setTrainingRecords([]);
   };
   return (
@@ -172,7 +182,7 @@ const TrainingInput: React.FC = () => {
           />
         </IconButton>
       </div>
-      <List data-testid="trainingRecordsList" dense={true} className="w-11/12 h-2/5 m-0">
+      <List data-testid="trainingRecordsList" dense={true} className="w-11/12 h-1/3 m-0">
         <div className={styles.scroll}>
           {trainingRecords.map((record, index) => (
             <ListItem key={index} className="mt-1">
@@ -205,23 +215,30 @@ const TrainingInput: React.FC = () => {
         </div>
       </List>
       <div className="w-9/12 flex justify-between items-center mb-5">
-        <IconButton data-testid="uploadButton" className="focus:outline-none">
-          <label>
-            <AddPhotoAlternateIcon
-              fontSize="large"
-              className={
-                image
-                ? "text-whiteSmoke cursor-pointer"
-                : "text-disableBtn cursor-pointer"
-              }
-            />
-            <input
-              className="hidden"
-              type="file"
-              onChange={onChangeImageHandler}
-            />
-          </label>
-        </IconButton>
+        <div className="flex items-center">
+          <IconButton data-testid="uploadButton" className="focus:outline-none">
+            <label>
+              <AddPhotoAlternateIcon
+                fontSize="large"
+                className={
+                  image
+                  ? "text-whiteSmoke cursor-pointer"
+                  : "text-disableBtn cursor-pointer"
+                }
+              />
+              <input
+                className="hidden"
+                type="file"
+                onChange={onChangeImageHandler}
+              />
+            </label>
+          </IconButton>
+          {previewImage &&
+            <Tooltip title="削除" >
+              <img src={previewImage} alt="" onClick={() => deletePreview()} className="cursor-pointer max-h-10 object-contain"/>
+            </Tooltip>
+          }
+        </div>
         <button
           data-testid="submitButton"
           type="submit"

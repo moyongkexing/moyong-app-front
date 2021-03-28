@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import type { VFC } from "react";
 import styles from "./Post.module.scss";
 import { useDispatch } from "react-redux";
 import { db } from "../../firebase";
@@ -21,11 +22,11 @@ interface Comment {
   id: string;
   avatar: string;
   text: string;
-  timestamp: any;
+  timestamp: string;
   username: string;
 }
 // -----------Postコンポーネント-----------
-const Post: React.FC<Props> = (props) => {
+const Post: VFC<Props> = (props) => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const [comments, setComments] = useState<Comment[]>([]);
@@ -52,7 +53,7 @@ const Post: React.FC<Props> = (props) => {
             avatar: doc.data().avatar,
             text: doc.data().text,
             username: doc.data().username,
-            timestamp: doc.data().timestamp,
+            timestamp: new Date(doc.data().timestamp.toDate()).toLocaleString(),
           }))
         );
       });
@@ -67,7 +68,6 @@ const Post: React.FC<Props> = (props) => {
           data-testid="avatar"
           src={props.avatar}
           className="cursor-pointer"
-          // onClick={() => setProfile(props.username, props.avatar)}
           onClick={() => 
             dispatch(
               setShowUser({
@@ -95,7 +95,7 @@ const Post: React.FC<Props> = (props) => {
                 }
               >{props.username}</span>
               <span data-testid="date" className="text-gray-500 text-sm">
-                {new Date(props.timestamp?.toDate()).toLocaleString()}
+                {props.timestamp}
               </span>
             </h3>
           </div>
@@ -164,7 +164,7 @@ const Post: React.FC<Props> = (props) => {
                 @{com.username}
               </span>
               <span className="text-sm text-whiteSmoke mr-3">{com.text}</span>
-              <span className="text-gray-500 text-sm">{new Date(com.timestamp?.toDate()).toLocaleString()}</span>
+              <span className="text-gray-500 text-sm">{com.timestamp}</span>
             </div>
           ))
         }

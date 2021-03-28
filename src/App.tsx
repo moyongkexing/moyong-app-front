@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
+import type { VFC } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser, login, logout, setShowUser } from "./features/userSlice";
 import { auth } from "./firebase";
 import Auth from "./components/Auth/Auth";
 import Feed from "./components/Feed/Feed";
 
-const App: React.FC = () => {
+const App: VFC = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 

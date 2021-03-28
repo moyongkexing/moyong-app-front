@@ -46,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.12.13",
     "@tailwindcss/postcss7-compat": "^2.0.3",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
@@ -55,6 +56,7 @@
     "autoprefixer": "^9.8.6",
     "node-sass": "^5.0.0",
     "postcss": "^7.0.35",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.3"
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.3",
+    "ts-jest": "^26.5.4"
   }
 }
