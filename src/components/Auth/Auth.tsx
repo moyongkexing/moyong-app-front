@@ -304,7 +304,7 @@ const Auth:React.FC = () => {
               おためしユーザーとしてログイン
             </Button>
           </form>
-          <Modal open={openModal} onClose={() => setOpenModal(false)}>
+          {/* <Modal open={openModal} onClose={() => setOpenModal(false)}>
             <div style={getModalStyle()} className={classes.modal}>
               <div className="text-center">
                 <TextField
@@ -324,7 +324,7 @@ const Auth:React.FC = () => {
                 </IconButton>
               </div>
             </div>
-          </Modal>
+          </Modal> */}
         </div>
       </div>
     </div>
