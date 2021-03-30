@@ -7,31 +7,18 @@ import styles from "./Auth.module.scss";
 import {
   Avatar,
   Button,
-  TextField,
   Grid,
   makeStyles,
-  Modal,
   IconButton,
   Box,
 } from "@material-ui/core";
-
-import SendIcon from "@material-ui/icons/Send";
 import CameraIcon from "@material-ui/icons/Camera";
 import EmailIcon from "@material-ui/icons/Email";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import TwitterIcon from '@material-ui/icons/Twitter';
+import ModalWindow from "../shared/ModalWindow";
 
-function getModalStyle() {
-  const top = 50;
-  const left = 50;
-
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-  }
-}
 const useStyles = makeStyles((theme) => ({
   avatar: {
     margin: theme.spacing(1),
@@ -55,21 +42,8 @@ const Auth:React.FC = () => {
   const [username, setUserName] = useState<string>("");
   const [avatarImage, setAvatarImage] = useState<File | null>(null);
   const [isLogin, setIsLogin] = useState<boolean>(true);
-  const [openModal, setOpenModal] = useState<boolean>(false);
-  const [resetEmail, setResetEmail] = useState<string>("");
-  
-  const sendResetEmail = async (e: React.MouseEvent<HTMLElement>) => {
-    await auth
-      .sendPasswordResetEmail(resetEmail)
-      .then(() => {
-        setOpenModal(false);
-        setResetEmail("");
-      })
-      .catch((err) => {
-        alert(err.message);
-        setResetEmail("");
-      })
-  };
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+
   const onChangeImageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files![0]) {
       setAvatarImage(e.target.files![0]);
@@ -273,7 +247,7 @@ const Auth:React.FC = () => {
               <Grid item xs>
                 <span
                   className="cursor-pointer text-gray-300"
-                  onClick={() => setOpenModal(true)}
+                  onClick={() => setIsOpenModal(true)}
                 >
                   パスワードをお忘れですか？
                 </span>
@@ -304,6 +278,10 @@ const Auth:React.FC = () => {
               おためしユーザーとしてログイン
             </Button>
           </form>
+          <ModalWindow
+            isOpen={isOpenModal}
+            setIsOpenModal={setIsOpenModal}
+          />
           {/* <Modal open={openModal} onClose={() => setOpenModal(false)}>
             <div style={getModalStyle()} className={classes.modal}>
               <div className="text-center">
